@@ -1,0 +1,24 @@
+Configuration
+	Git
+		color.ui
+		prompt : http://mediadoneright.com/content/ultimate-git-ps1-bash-prompt
+		alias
+	Git gui
+		stash
+
+Branching model
+	nvie.com : http://nvie.com/posts/a-successful-git-branching-model/
+	master -> dev -> feature
+	dev -> master : rebase
+	feature -> dev : rebase
+
+Gestion de projet globale
+	Travailler seul
+	Contributeurs
+	alias pour switcher facilement
+	Cas problématiques
+		Travail sur une mauvaise branche
+
+Visualiser l'historique
+	gitk
+		switches
