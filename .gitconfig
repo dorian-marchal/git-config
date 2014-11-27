@@ -1,0 +1,21 @@
+[gui]
+	spellingdictionary = none
+
+[credential]
+	helper = cache --timeout=50000
+
+[guitool "Stash/git stash"]
+        cmd = git stash
+[guitool "Stash/git stash apply"]
+        cmd = git stash apply
+[guitool "Stash/git stash drop"]
+        cmd = git stash drop
+        confirm = yes
+[guitool "Stash/git stash show -p"]
+        cmd = git stash show -p
+[guitool "Stash/git stash list"]
+        cmd = git stash list
+
+[user]
+	email = marchal.dorian@gmail.com
+	name = dorian-marchal
