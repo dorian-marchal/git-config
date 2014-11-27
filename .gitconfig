@@ -33,7 +33,7 @@
 
         co = checkout
 
-        d = diff
+        d = diff --color
 
         lc = !git ol ORIG_HEAD.. --stat --no-merges
 
@@ -57,6 +57,7 @@
         sta = stash apply
         std = stash drop
         sts = stash show -p
+        stp = stash pop
 
         unc = reset --soft HEAD^
 

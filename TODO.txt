@@ -10,6 +10,8 @@ Configuration
 
 	À ajouter au bashrc pour alias git -> g
 	    alias g='git'
+	    # sous Ubuntu 13.04+
+	    # source /usr/share/bash-completion/completions/git
 	    complete -o bashdefault -o default -o nospace -F _git g 2>/dev/null || complete -o default -o nospace -F _git g
 
 Branching model
