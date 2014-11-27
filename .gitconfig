@@ -1,21 +1,64 @@
 [gui]
-	spellingdictionary = none
-
+        spellingdictionary = none
+        recentrepo = /media/data/www/github-contributions-heatmap
+        recentrepo = /media/data/www/cartoon-project-organization
+        recentrepo = /media/data/www/get-spawnkill
+        recentrepo = /media/data/www/spawnkill
 [credential]
-	helper = cache --timeout=50000
+        helper = cache --timeout=50000
 
-[guitool "Stash/git stash"]
+[guitool "Stash/stash"]
         cmd = git stash
-[guitool "Stash/git stash apply"]
+[guitool "Stash/apply"]
         cmd = git stash apply
-[guitool "Stash/git stash drop"]
+[guitool "Stash/drop"]
         cmd = git stash drop
         confirm = yes
-[guitool "Stash/git stash show -p"]
+[guitool "Stash/show"]
         cmd = git stash show -p
-[guitool "Stash/git stash list"]
+[guitool "Stash/list"]
         cmd = git stash list
-
 [user]
-	email = marchal.dorian@gmail.com
-	name = dorian-marchal
+        email = marchal.dorian@gmail.com
+        name = dorian-marchal
+
+[alias]
+        a = add
+
+        amend = commit --amend
+
+        b = branch
+
+        c = commit -m
+
+        co = checkout
+
+        d = diff
+
+        lc = !git ol ORIG_HEAD.. --stat --no-merges
+
+        m = merge --no-ff
+        mff = merge
+
+        ol = log --pretty=oneline --abbrev-commit --graph
+
+        p = push
+
+        pl = pull
+
+        rb = rebase
+
+    rmm = !git ls-files -d -z | xargs -0 git-rm && git status
+
+        s = status
+
+        st  = stash
+        stl = stash list
+        sta = stash apply
+        std = stash drop
+        sts = stash show -p
+
+        unc = reset --soft HEAD^
+
+        who = shortlog -sne
+
