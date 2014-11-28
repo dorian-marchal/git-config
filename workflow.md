@@ -19,6 +19,35 @@ Le développement d'une fonctionnalité ne se fait jamais directement sur
  ```bash
  git checkout -b ma-fonctionnalite master
  ```
+2. __Récupérer les mise à jour d'`origin/dev`__
+ 
+ Pendant le développement de la fonctionnalité, d'autres utilisateurs
+ peuvent avoir poussé des commits sur `origin/dev`.
+ Pour le vérifier, récupérer les modifications distantes :
+
+ ```bash
+ git fetch origin dev
+ ```
+
+ Si des modifications sont présentes, les intégrer dans la branche locale
+ `dev` :
+
+ ```bash
+ # On se replace sur dev
+ git checkout dev
+ # On intégre les modifications distantes
+ git merge origin/dev
+ ```
+
+ Puis rebaser le travail effectué dans `ma-fonctionnalite` sur `dev` :
+
+ ```bash
+ # On se remet sur ma-fonctionnalite
+ git checkout ma-fonctionnalite
+ # Avant de rebaser la fonctionnalité sur dev
+ git rebase dev
+ ```
+
 
  Les *feature branch* sont des branches locales qui ne doivent pas
  nécessairement être poussées sur `origin`
