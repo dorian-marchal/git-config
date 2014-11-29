@@ -115,4 +115,4 @@ git who
 
 ## Mettre en place les alias sous Ubuntu
 
-## Mettre en place les alias sous Windows
+## Mettre en place les alias avec Git Bash sous Windows
