@@ -6,49 +6,112 @@
 
 ## Liste des alias
 
-a = add
+```bash
+# git add
+git a
+```
 
-amend = commit --amend
+```bash
+# git commit --amend
+git amend
+```
 
-b = branch
+```bash
+# git branch
+git b
+```
 
-c = commit
+```bash
+# git commit
+git c
+```
 
-co = checkout
+```bash
+# git checkout
+git co
+```
 
-d = diff --color
+```bash
+# git diff --color
+git d
+```
 
-g = !git gui
+```bash
+# git gui
+git g
+```
 
-k = !gitk --all
+```bash
+# gitk --all
+git k
+```
 
-lc = !git ol ORIG_HEAD.. --stat --no-merges
+```bash
+# git log --pretty=oneline --abbrev-commit --graph ORIG_HEAD.. --stat --no-merges
+git lc
+```
 
-m = merge --no-ff
-mff = merge
+```bash
+# git merge --no-ff
+git m
+# git merge
+git mff
+```
 
-ol = log --pretty=oneline --abbrev-commit --graph
+```bash
+# git log --pretty=oneline --abbrev-commit --graph
+git ol
+```
 
-p = push
+```bash
+# git push
+git p
+```
 
-pl = pull
+```bash
+# git pull
+git pl
+```
 
-rb = rebase
+```bash
+# git rebase
+git rb
+```
 
-rmm = !git ls-files -d -z | xargs -0 git-rm && git status
+```bash
+# git status
+git s
+```
 
-s = status
+```bash
+# git stash
+git st
 
-st  = stash
-stl = stash list
-sta = stash apply
-std = stash drop
-sts = stash show -p
-stp = stash pop
+# git stash list
+git stl
 
-unc = reset --soft HEAD^
+# git stash apply
+git sta
 
-who = shortlog -sne
+# git stash drop
+git std
+
+# git stash show -p
+git sts
+
+# git stash pop
+git stp
+```
+
+```bash
+# git reset --soft HEAD^ (Annuler un commit)
+git unc
+```
+
+```bash
+# git shortlog -sne
+git who
+```
 
 ## Mettre en place les alias sous Ubuntu
 
