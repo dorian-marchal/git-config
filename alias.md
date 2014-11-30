@@ -4,6 +4,10 @@
 
 ---
 
+## Mettre en place les alias sous Ubuntu
+
+## Mettre en place les alias avec Git Bash sous Windows
+
 ## Liste des alias
 
 ```bash
@@ -112,7 +116,3 @@ git unc
 # git shortlog -sne
 git who
 ```
-
-## Mettre en place les alias sous Ubuntu
-
-## Mettre en place les alias avec Git Bash sous Windows
