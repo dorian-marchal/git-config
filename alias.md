@@ -17,6 +17,19 @@ et ajoutez cette ligne dans le fichier `~/.gitconfig` :
 path = .gitalias
 ```
 
+Il est aussi possible de faire un alias pour `git` (dans mon cas, `g`) de manière classique (par exemple en l'ajoutant dans votre `~/.bashrc`).
+Dans ce cas, il faudra ajouter quelques lignes pour faire fonctionner l'autocomplétion de git avec l'alias :
+
+```bash
+# alias git -> g
+alias g='git'
+
+# à décommenter sous Ubuntu 13.04+
+# source /usr/share/bash-completion/completions/git
+
+complete -o bashdefault -o default -o nospace -F _git g 2>/dev/null || complete -o default -o nospace -F _git g
+```
+
 ## Mettre en place les alias avec Git Bash sous Windows
 
 ## Liste des alias
