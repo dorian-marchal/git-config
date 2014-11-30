@@ -6,6 +6,17 @@
 
 ## Mettre en place les alias sous Ubuntu
 
+Les alias sont dans le fichier `.gitalias` à la racine du dépôt.
+Pour installer ces alias, copiez-collez simplemebnt le contenu de ce fichier dans `~/.gitconfig`.
+
+Sous git 1.7.10+ (`git --version`), il est possible de placer ce fichier dans `~/.gitalias`
+et ajoutez cette ligne dans le fichier `~/.gitconfig` :
+
+```bash
+[include]
+path = .gitalias
+```
+
 ## Mettre en place les alias avec Git Bash sous Windows
 
 ## Liste des alias
