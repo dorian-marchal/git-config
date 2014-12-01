@@ -101,6 +101,9 @@ git mff
 ```bash
 # git log --pretty=oneline --abbrev-commit --graph
 git ol
+
+# git --no-pager ol (Affiche tous les logs sans pagination, utile pour `grep`)
+git olnp
 ```
 
 ```bash

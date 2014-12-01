@@ -24,6 +24,7 @@
         mff = merge
 
         ol = log --pretty=oneline --abbrev-commit --graph --decorate
+        olnp = !git --no-pager ol
 
         p = push
 
