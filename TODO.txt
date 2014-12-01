@@ -14,6 +14,10 @@ Configuration
         # source /usr/share/bash-completion/completions/git
         complete -o bashdefault -o default -o nospace -F _git g 2>/dev/null || complete -o default -o nospace -F _git g
 
+    Sublime Text
+        Plugin Git
+        Ouvrir dépôt depuis le projet
+
 Branching model
     nvie.com : http://nvie.com/posts/a-successful-git-branching-model/
     master -> dev -> feature
