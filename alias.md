@@ -75,13 +75,17 @@ git k
 ```
 
 ```bash
-# git log --pretty=oneline --abbrev-commit --graph ORIG_HEAD.. --stat --no-merges
+# git log --pretty=oneline --abbrev-commit --graph ORIG_HEAD.. --stat --no-merges --decorate
 git lc
 ```
 
 ```bash
-# git merge --no-ff
+# git merge --no-ff -m
 git m
+# utilisation :
+g m "Effectue telle modif" to-merge-branch
+
+
 # git merge
 git mff
 ```
