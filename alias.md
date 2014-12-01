@@ -57,6 +57,9 @@ git c
 ```bash
 # git checkout
 git co
+
+# git checkout -b
+git cob
 ```
 
 ```bash
