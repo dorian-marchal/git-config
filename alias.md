@@ -68,6 +68,11 @@ git d
 ```
 
 ```bash
+# git branch --no-merged dev (fonctionnalités En Développement)
+git ed
+```
+
+```bash
 # git gui
 git g
 ```

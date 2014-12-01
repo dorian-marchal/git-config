@@ -12,6 +12,8 @@
 
         d = diff --color
 
+        ed = branch --no-merged dev
+
         g = !git gui
 
         k = !gitk --all
