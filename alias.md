@@ -88,10 +88,10 @@ git lc
 ```
 
 ```bash
-# git merge --no-ff -m
+# git merge --no-ff -e
 git m
 # utilisation :
-g m "Effectue telle modif" to-merge-branch
+g m to-merge-branch
 
 
 # git merge
