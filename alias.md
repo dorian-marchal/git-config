@@ -99,11 +99,11 @@ git mff
 ```
 
 ```bash
-# git log --pretty=oneline --abbrev-commit --graph
-git ol
+# git log --all --graph --abbrev=5 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit
+git lg
 
-# git --no-pager ol (Affiche tous les logs sans pagination, utile pour `grep`)
-git olnp
+# git --no-pager lg (Affiche tous les logs sans pagination, utile pour `grep`)
+git lgnp
 ```
 
 ```bash

@@ -23,8 +23,8 @@
         m = merge --no-ff -e
         mff = merge
 
-        ol = log --pretty=oneline --abbrev-commit --graph --decorate
-        olnp = !git --no-pager ol
+        lg = log --all --graph --abbrev=5 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit
+        lgnp = !git --no-pager lg
 
         p = push
 
