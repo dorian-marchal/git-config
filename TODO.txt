@@ -14,6 +14,8 @@ Configuration
        Sublime Text
         Plugin Git
         Ouvrir dépôt depuis le projet
+        AJouter les raccourcis clavier
+        Lien vers le dépot
 
 Branching model
     nvie.com : http://nvie.com/posts/a-successful-git-branching-model/
