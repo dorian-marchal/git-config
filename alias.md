@@ -73,6 +73,11 @@ git ed
 ```
 
 ```bash
+# git fetch
+git f
+```
+
+```bash
 # git gui
 git g
 ```
@@ -88,22 +93,26 @@ git lc
 ```
 
 ```bash
+# git log --all --graph --abbrev=5 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit
+git lg
+
+# git --no-pager lg (Affiche tous les logs sans pagination, utile pour `grep`)
+git lgnp
+```
+
+```bash
 # git merge --no-ff -e
 git m
 # utilisation :
 g m to-merge-branch
-
 
 # git merge
 git mff
 ```
 
 ```bash
-# git log --all --graph --abbrev=5 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit
-git lg
-
-# git --no-pager lg (Affiche tous les logs sans pagination, utile pour `grep`)
-git lgnp
+# git mergetool -y
+git mt
 ```
 
 ```bash
