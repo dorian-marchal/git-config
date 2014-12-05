@@ -63,6 +63,11 @@ git cob
 ```
 
 ```bash
+# git cherry-pick
+git cp
+```
+
+```bash
 # git diff --color
 git d
 ```
