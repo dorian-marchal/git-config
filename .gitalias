@@ -9,6 +9,8 @@
 
         co = checkout
         cob = checkout -b
+        
+        cp = cherry-pick
 
         d = diff --color
 
