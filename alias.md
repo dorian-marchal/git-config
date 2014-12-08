@@ -119,7 +119,7 @@ git mff
 ```
 
 ```bash
-# git mergetool -y
+# git mergetool -y (sans confirmation)
 git mt
 ```
 
@@ -169,6 +169,6 @@ git unc
 ```
 
 ```bash
-# git shortlog -sne
+# git shortlog -sne (Nombre de commits par contributeur)
 git who
 ```
