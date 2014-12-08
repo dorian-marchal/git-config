@@ -9,12 +9,14 @@
 
         co = checkout
         cob = checkout -b
-        
+
         cp = cherry-pick
 
         d = diff --color
 
         ed = branch --no-merged dev
+
+        f = fetch
 
         g = !git gui
 
@@ -24,6 +26,8 @@
 
         m = merge --no-ff -e
         mff = merge
+
+        mt = mergetool -y
 
         lg = log --all --graph --abbrev=5 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit
         lgnp = !git --no-pager lg
