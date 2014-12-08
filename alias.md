@@ -103,6 +103,9 @@ git lg
 
 # git --no-pager lg (Affiche tous les logs sans pagination, utile pour `grep`)
 git lgnp
+
+# git lgnp | head -n 20 (Affiche les 20 premières lignes de log)
+git lgh
 ```
 
 ```bash
