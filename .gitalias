@@ -31,7 +31,7 @@
 
         lg = log --all --graph --abbrev=5 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit
         lgnp = !git --no-pager lg
-        lgh = !git lgnp | head -n 20
+        lgh = !"f() { if [ -z \"$1\" ]; then linecount=\"20\"; else linecount=$1; fi; git lgnp | head -n \"$linecount\"; }; f"
 
         p = push
 
