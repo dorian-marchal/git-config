@@ -93,11 +93,6 @@ git k
 ```
 
 ```bash
-# git log --pretty=oneline --abbrev-commit --graph ORIG_HEAD.. --stat --no-merges --decorate
-git lc
-```
-
-```bash
 # git log --all --graph --abbrev=5 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit
 git lg
 
@@ -114,7 +109,7 @@ g lgh n
 ```
 
 ```bash
-# git merge --no-ff -e
+# git merge --no-ff -e (no fast forward avec message de commit)
 git m
 # utilisation :
 g m to-merge-branch
