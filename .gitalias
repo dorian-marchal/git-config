@@ -1,6 +1,8 @@
 [alias]
         a = add
 
+        alias = !git config -l | grep ^alias.
+
         amend = commit --amend
 
         b = branch

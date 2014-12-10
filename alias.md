@@ -40,6 +40,11 @@ git a
 ```
 
 ```bash
+# !git config -l | grep ^alias. (Liste les alias git)
+git alias
+```
+
+```bash
 # git commit --amend
 git amend
 ```
