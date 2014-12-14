@@ -26,8 +26,16 @@ Rechargez le bashrc pour voir les changements :
 . ~/.bashrc
 ```
 
-Note : L'autocomplétion bash doit être activée pour que ça fonctionne. Dans le cas contraire, vous verrez sans doute une ligne du genre :
+__Screenshot :__
+
+![screenshot](http://mediadoneright.com/sites/mediadoneright.com/files/manual/GIT_PS1_CUSTOMIZATION.png)
+
+__Notes :__
+
+- Le script parse la sortie de git, si git ne fait pas ses sorties en anglais, le prompt ne fonctionnera pas correctement.
+- L'autocomplétion bash doit être activée pour que ça fonctionne. Dans le cas contraire, vous verrez sans doute une ligne du genre :
+
 
 ```
 __git_ps1: command not found
-``` 
+```
