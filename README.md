@@ -6,5 +6,5 @@ Liste de toutes les ressources dont j'ai besoin pour mettre en place mon workflo
 Mise en place de l'environnement Git
 ------------------------------------
 
-- [Git alias](git-alias.md)
-- [Git prompt](git-prompt.md)
+- [Git alias](gitalias.md)
+- [Git prompt](gitprompt.md)
