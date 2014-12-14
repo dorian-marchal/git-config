@@ -1,7 +1,8 @@
 Configuration
+    Bash autocompletion et couleur
+
     Git
         color.ui
-        prompt : http://mediadoneright.com/content/ultimate-git-ps1-bash-prompt
         alias
     Git gui
         stash
@@ -16,6 +17,8 @@ Configuration
         Ouvrir dépôt depuis le projet
         AJouter les raccourcis clavier
         Lien vers le dépot
+
+    Faire des liens vers les différentes parties dans le README principal
 
 Branching model
     nvie.com : http://nvie.com/posts/a-successful-git-branching-model/
