@@ -30,8 +30,6 @@ alias g='git'
 complete -o bashdefault -o default -o nospace -F _git g 2>/dev/null || complete -o default -o nospace -F _git g
 ```
 
-## Mettre en place les alias avec Git Bash sous Windows
-
 ## Liste des alias
 
 ```bash
