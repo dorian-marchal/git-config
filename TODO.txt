@@ -1,0 +1,43 @@
+Configuration
+    Bash
+        autocompletion et couleur
+
+    Git
+        Mettre git en anglais
+        color.ui
+
+        mergetool
+            git config --global mergetool.keepBackup false
+
+        Github
+            Authentification : Clé privée / publique
+
+        Branching model
+            nvie.com : http://nvie.com/posts/a-successful-git-branching-model/
+            master -> dev -> feature
+            dev -> master : rebase
+            feature -> dev : rebase
+
+        Gestion de projet globale
+            Travailler seul
+            Contributeurs
+            alias pour switcher facilement
+            Cas problématiques classiques
+                Travail sur une mauvaise branche
+
+    Visualiser l'historique
+        gitk
+            Repasser en anglais
+            Différences entre deux diff
+
+   Sublime Text
+        Plugin Git
+        Ouvrir dépôt depuis le projet
+        Lien vers le dépot
+        Raccourcis clavier
+        Snippets
+
+Autres
+    Renommer le dépôt
+        git-config -> workflow-perso
+    Faire des liens vers les différentes parties dans le README principal

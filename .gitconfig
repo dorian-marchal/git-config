@@ -1,0 +1,23 @@
+[gui]
+        spellingdictionary = none
+        recentrepo = /media/data/www/github-contributions-heatmap
+        recentrepo = /media/data/www/cartoon-project-organization
+        recentrepo = /media/data/www/get-spawnkill
+        recentrepo = /media/data/www/spawnkill
+[credential]
+        helper = cache --timeout=50000
+
+[guitool "Stash/stash"]
+        cmd = git stash
+[guitool "Stash/apply"]
+        cmd = git stash apply
+[guitool "Stash/drop"]
+        cmd = git stash drop
+        confirm = yes
+[guitool "Stash/show"]
+        cmd = git stash show -p
+[guitool "Stash/list"]
+        cmd = git stash list
+[user]
+        email = marchal.dorian@gmail.com
+        name = dorian-marchal

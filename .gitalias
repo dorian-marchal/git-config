@@ -1,0 +1,55 @@
+[alias]
+        a = add
+
+        alias = !git config -l | grep ^alias.
+
+        amend = commit --amend
+
+        b = branch
+
+        c = commit
+
+        co = checkout
+        cob = checkout -b
+
+        cp = cherry-pick
+
+        d = diff --color
+
+        ed = branch --no-merged dev
+
+        f = fetch
+
+        g = !git gui
+
+        k = !gitk --all
+
+        lc = !git ol ORIG_HEAD.. --stat --no-merges
+
+        m = merge --no-ff -e
+        mff = merge
+
+        mt = mergetool -y
+
+        lg = log --all --graph --abbrev=5 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit
+        lgnp = !git --no-pager lg
+        lgh = !"f() { if [ -z \"$1\" ]; then linecount=\"20\"; else linecount=$1; fi; git lgnp | head -n \"$linecount\"; }; f"
+
+        p = push
+
+        pl = pull
+
+        rb = rebase
+
+        s = status
+
+        st  = stash
+        stl = stash list
+        sta = stash apply
+        std = stash drop
+        sts = stash show -p
+        stp = stash pop
+
+        unc = reset --soft HEAD^
+
+        who = shortlog -sne
