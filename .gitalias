@@ -32,9 +32,10 @@
 
         mt = mergetool -y
 
-        lg = log --all --graph --abbrev=5 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit
-        lgnp = !git --no-pager lg
-        lgh = !"f() { if [ -z \"$1\" ]; then linecount=\"20\"; else linecount=$1; fi; git lgnp | head -n \"$linecount\"; }; f"
+        l = log --all --graph --abbrev=5 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit
+        lg = !"f() { git lnp | grep --color -i \"$@\"; }; f"
+        lnp = !git --no-pager l
+        lh = !"f() { if [ -z \"$1\" ]; then linecount=\"20\"; else linecount=$1; fi; git lnp | head -n \"$linecount\"; }; f"
 
         p = push
 
