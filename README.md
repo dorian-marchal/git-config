@@ -1,10 +1,15 @@
 git-config
 ==========
 
-Liste de toutes les ressources dont j'ai besoin pour mettre en place mon workflow habituel sur Git
+Liste des guides et des ressources nécessaires à la mise en place mon workflow habituel
 
 Mise en place de l'environnement Git
 ------------------------------------
 
-- [Git alias](git-alias.md)
-- [Git prompt](git-prompt.md)
+### Alias Git
+
+- [Guide de mise en place des alias](git-alias.md)
+
+### Git prompt
+
+- [Guide de mise en place du prompt](git-prompt.md)
