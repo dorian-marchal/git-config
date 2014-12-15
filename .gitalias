@@ -25,7 +25,6 @@
         k = !gitk --argscmd='git for-each-ref --format="%(refname)" refs/heads refs/tags'
         ka = !gitk --all
 
-
         lc = !git ol ORIG_HEAD.. --stat --no-merges
 
         m = merge --no-ff -e
