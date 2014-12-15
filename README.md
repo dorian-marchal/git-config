@@ -1,7 +1,7 @@
 git-config
 ==========
 
-Liste des guides et des ressources nécessaires à la mise en place mon workflow habituel
+Liste des guides et des ressources nécessaires à la mise en place de mon workflow habituel
 
 Mise en place de l'environnement Git
 ------------------------------------
