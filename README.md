@@ -8,8 +8,12 @@ Mise en place de l'environnement Git
 
 ### Alias Git
 
-- [Guide de mise en place des alias](git-alias.md)
+- [Des alias pour faciliter l'utilisation de la CLI](git-alias.md)
 
 ### Git prompt
 
-- [Guide de mise en place du prompt](git-prompt.md)
+- [Modification du prompt pour Git](git-prompt.md)
+
+### Authentification SSH
+
+- [S'authentifier via SSH pour éviter de taper ses pass sans arrêt](git-authentification.md)
