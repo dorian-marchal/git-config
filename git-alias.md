@@ -50,6 +50,12 @@ git amend
 ```bash
 # git branch
 git b
+
+# git branch -d
+git bd
+
+# git branch -D
+git bD
 ```
 
 ```bash

@@ -6,6 +6,8 @@
         amend = commit --amend
 
         b = branch
+        bd = branch -d
+        bD = branch -D
 
         c = commit
 
