@@ -71,6 +71,12 @@ git cp
 ```
 
 ```bash
+# git describe --tags --match "v[0-9]*" --abbrev=0 (Dernier tag du type v[0-9]+)
+git current-release
+```
+
+
+```bash
 # git diff --color
 git d
 ```
