@@ -50,6 +50,12 @@ git amend
 ```bash
 # git branch
 git b
+
+# git branch -d
+git bd
+
+# git branch -D
+git bD
 ```
 
 ```bash
@@ -71,8 +77,17 @@ git cp
 ```
 
 ```bash
+# git describe --tags --match "v[0-9]*" --abbrev=0 (Dernier tag du type v[0-9]+)
+git current-release
+```
+
+
+```bash
 # git diff --color
 git d
+
+# git diff --color --stat <commit>
+git ds <commit>
 ```
 
 ```bash
@@ -91,31 +106,37 @@ git g
 ```
 
 ```bash
-# gitk --all
+# !gitk --argscmd='git for-each-ref --format="%(refname)" refs/heads refs/tags' (Affiche les branches locales et les tags, seulement)
 git k
+# gitk --all (Affiche aussi les remote branches)
+git ka
 ```
 
 ```bash
 # git log --all --graph --abbrev=5 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit
-git lg
+git l
 
-# git --no-pager lg (Affiche tous les logs sans pagination, utile pour `grep`)
-git lgnp
+# git --no-pager l (Affiche tous les logs sans pagination, utile pour `grep`)
+git lnp
 
-# !"f() { if [ -z \"$1\" ]; then lc=\"20\"; else lc=$1; fi; git lgnp | head -n \"$lc\"; }; f"
-# (Affiche les 20 premières lignes de log : LoG Head)
-git lgh
+# !"f() { git lnp | grep --color -i \"$@\"; }; f" (permet de rechercher avec grep dans les logs)
+git lg <pattern>
+
+
+# !"f() { if [ -z \"$1\" ]; then lc=\"20\"; else lc=$1; fi; git lnp | head -n \"$lc\"; }; f"
+# (Affiche les 20 premières lignes de log : Log Head)
+git lh
 # utilisation :
-g lgh
+g lh
 # ou (pour les n premières lignes):
-g lgh n
+g lh <n>
 ```
 
 ```bash
 # git merge --no-ff -e (no fast forward avec message de commit)
 git m
 # utilisation :
-g m to-merge-branch
+g m <to-merge-branch>
 
 # git merge
 git mff
