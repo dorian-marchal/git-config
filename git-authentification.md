@@ -34,7 +34,13 @@ Copier le contenu affiché (tout le contenu et pas seulement la grande chaine bo
 
 ### Sur un serveur sous Debian
 
-*__Note :__ Le fonctionnement devrait être similaire pour tout autre serveur sous Linux.*
+Ajouter la clé publique aux clés autorisées pour l'utilisateur concerné :
+
+```bash
+echo "CONTENU_DE_LA_CLE_PRECEDEMMENT_COPIE" >> ~/.ssh/authorized_keys
+```
+
+*__Note :__ La manipulation devrait être similaire pour tout autre serveur sous Linux.*
 
 ### Sur Github
 
