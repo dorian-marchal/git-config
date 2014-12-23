@@ -47,3 +47,11 @@ echo "CONTENU_DE_LA_CLE_PRECEDEMMENT_COPIE" >> ~/.ssh/authorized_keys
 *__Note :__ Il est possible de gérer l'authentification pour chaque dépôt dans les paramètres des dépôts en question.*
 
 ## Tester que tout fonctionne
+
+Pour vérifier que l'authentification SSH est bien fonctionnelle, essayez de vous connecter en SSH depuis le terminal :
+
+```bash
+ssh user@host
+```
+
+Si vous êtes connecté sans avoir à saisir de mot de passe, tout est bon :+1:
