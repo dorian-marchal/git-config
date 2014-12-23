@@ -44,11 +44,19 @@ echo "CONTENU_DE_LA_CLE_PRECEDEMMENT_COPIE" >> ~/.ssh/authorized_keys
 
 ### Sur Github
 
+Allez dans les paramètres de Github.
+
+![github settings](http://www.dorian-marchal.com/assets/ssh-github-settings.png)
+
+Dans la rubrique __SSH Keys__, cliquez sur __Add SSH key__ et ajoutez la clé depuis le formulaire :
+
+![github key form](http://www.dorian-marchal.com/assets/ssh-github-key.png)
+
 *__Note :__ Il est possible de gérer l'authentification pour chaque dépôt dans les paramètres des dépôts en question.*
 
 ## Tester que tout fonctionne
 
-Pour vérifier que l'authentification SSH est bien fonctionnelle, essayez de vous connecter en SSH depuis le terminal :
+Pour vérifier que l'authentification SSH est bien fonctionnelle, essayez de vous connecter en SSH depuis le terminal (non valable pour Github) :
 
 ```bash
 ssh user@host
