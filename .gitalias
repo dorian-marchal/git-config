@@ -19,6 +19,7 @@
         current-release = !git describe --tags --match "v[0-9]*" --abbrev=0
 
         d = diff --color
+        ds = diff --color --stat
 
         ed = branch --no-merged dev
 

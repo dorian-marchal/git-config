@@ -85,6 +85,9 @@ git current-release
 ```bash
 # git diff --color
 git d
+
+# git diff --color --stat <commit>
+git ds <commit>
 ```
 
 ```bash
@@ -133,7 +136,7 @@ g lh <n>
 # git merge --no-ff -e (no fast forward avec message de commit)
 git m
 # utilisation :
-g m to-merge-branch
+g m <to-merge-branch>
 
 # git merge
 git mff
