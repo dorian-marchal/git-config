@@ -9,9 +9,6 @@ Configuration
         mergetool
             git config --global mergetool.keepBackup false
 
-        Github
-            Authentification : Clé privée / publique
-
         Branching model
             nvie.com : http://nvie.com/posts/a-successful-git-branching-model/
             master -> dev -> feature
