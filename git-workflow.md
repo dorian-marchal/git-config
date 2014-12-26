@@ -36,7 +36,7 @@ Le développement d'une fonctionnalité ne se fait jamais directement sur
  # On se replace sur dev
  git checkout dev
  # On intégre les modifications distantes
- git merge origin/dev
+ git rebase origin/dev
  ```
 
  Puis rebaser le travail effectué dans `ma-fonctionnalite` sur `dev` :
