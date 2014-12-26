@@ -1,5 +1,7 @@
 # Workflow git
 
+Ce guide décrit rapidement un workflow classique que j'utilise pour mes différents projets. Il ressemble au "Successful Branching Model" en version simplifiée. Ce modèle fonctionne bien quand il n'y a qu'une seule version du projet à maintenir.
+
 ## Mettre en place un projet
 
 __Créer la branche `dev` issue de `master`__ et la pousser sur `origin`
