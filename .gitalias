@@ -29,6 +29,8 @@
 
         k = !gitk --argscmd='git for-each-ref --format=\"%(refname)\" refs/heads refs/tags'
         ka = !gitk --all
+	ksc = !"f() { git k --select-commit="$@"; }; f"
+	kasc = !"f() { git ka --select-commit="$@"; }; f"
 
         m = merge --no-ff -e
         mff = merge

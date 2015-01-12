@@ -106,10 +106,14 @@ git g
 ```
 
 ```bash
-# !gitk --argscmd='git for-each-ref --format="%(refname)" refs/heads refs/tags' (Affiche les branches locales et les tags, seulement)
+# gitk --argscmd='git for-each-ref --format="%(refname)" refs/heads refs/tags' (Affiche les branches locales et les tags, seulement)
 git k
 # gitk --all (Affiche aussi les remote branches)
 git ka
+# gitk --argscmd='git for-each-ref --format="%(refname)" refs/heads refs/tags' --select-commit=<commit>
+git ksc
+# gitk --all --select-commit=<commit>
+git kasc
 ```
 
 ```bash
