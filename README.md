@@ -17,3 +17,7 @@ Mise en place de l'environnement Git
 ### Authentification SSH
 
 - [S'authentifier via SSH pour éviter de taper ses pass sans arrêt](git-authentification.md)
+
+### Git config
+
+- [Quelques paramètres utiles dans Git](git-config.md)
