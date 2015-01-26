@@ -40,6 +40,10 @@ git a
 ```bash
 # !git config -l | grep ^alias. (Liste les alias git)
 git alias
+
+# !git alias | grep -oP --color=never "alias\.$@=\K(.*)" (voir la description d'un alias)
+git aliasg
+# Exemple d'utilisation : git aliasg l
 ```
 
 ```bash
