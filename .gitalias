@@ -2,7 +2,7 @@
         a = add
 
         alias = !git config -l | grep ^alias.
-	aliasg = !"f() { git alias | grep -oP --color=never "alias.$@=\K(.*)" }; f"
+	aliasg = !"f() { git alias | grep -oP --color=never \"alias\\.$@=\\K(.*)\"; }; f"
 
         amend = commit --amend
 
