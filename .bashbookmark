@@ -1,0 +1,22 @@
+. ~/.bookmarks
+
+bm() {
+        if [[ -n "$1" ]]
+        then
+                echo "$1(){ cd \"$(pwd)\"; }"  >> ~/.bookmarks
+                . ~/.bookmarks
+        fi
+}
+
+bml() {
+        sed s/\(\){\ cd\ \"/:\ / ~/.bookmarks | sed s/\"\;\ }// | GREP_COLOR='1;34' grep ^.*:
+}
+
+bmd() {
+        sed -i "/^$1(){/d" ~/.bookmarks
+}
+
+bme() {
+        nano ~/.bookmarks
+}
+
