@@ -31,8 +31,8 @@ bmd() {
         sed -i "/^$1(){/d" ~/.bookmarks
 }
 
-# bookmark-edit - Edite directement le fichier de bookmarks avec nano
+# bookmark-edit - Edite directement le fichier de bookmarks avec l'éditeur par défaut (ou nano)
 bme() {
-        nano ~/.bookmarks
+        "${EDITOR:-nano}" ~/.bookmarks
 }
 
