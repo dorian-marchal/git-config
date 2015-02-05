@@ -22,7 +22,7 @@ bm() {
 
 # bookmark-list - Liste les bookmarks existants
 bml() {
-        cat ~/.bookmarks | sort | sed s/\(\){\ cd\ \"/:\ / | sed s/\"\;\ }// | GREP_COLOR='1;34' grep ^.*:
+        cat ~/.bookmarks | sort | sed s/\(\){\ cd\ \"/:\ / | sed s/\"\;\ }// | GREP_COLOR='1;34' grep --color=always ^.*: | GREP_COLOR='1;30' grep ":"
 }
 
 # bookmark-delete - Supprime un bookmark
