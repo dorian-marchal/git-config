@@ -1,10 +1,10 @@
 # Git config
 
-*Quelques paramètres utiles dans Git*
+*Quelques paramètres / manip' utiles dans Git*
 
 ---
 
-## Configurer l'éditeur utilisé par Git
+### Configurer l'éditeur utilisé par Git
 
 Il est possible de changer l'éditeur utilisé par Git :
 
@@ -15,3 +15,15 @@ git config --global core.editor <commande>
 git config --global core.editor "~/apps/st2/sublime_text -n -w"
 ```
 
+
+### Rétablir les permissions dans un dépôt Git
+
+Une fausse manip' peut entraîner la modification des fichiers d'un dépôt Git.
+
+Il est possible de les rétablir avec ces commandes
+
+```bash
+# À adapter au cas par cas
+git diff --summary | grep --color 'mode change 100755 => 100644' | cut -d' ' -f7- | xargs -d'\n' chmod +x
+git diff --summary | grep --color 'mode change 100644 => 100755' | cut -d' ' -f7- | xargs -d'\n' chmod -x
+```

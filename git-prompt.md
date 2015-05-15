@@ -25,10 +25,14 @@ __Screenshot :__
 __Notes :__
 
 - Le script parse la sortie de git, si git ne fait pas ses sorties en anglais, le prompt ne fonctionnera pas correctement.
+
+  ```bash
+  # Ajouter cet alias dans le .bashrc pour passer git en anglais
+  alias git='LANG=en_US git'
+  ```
+
 - L'autocomplétion bash doit être activée pour que ça fonctionne. Dans le cas contraire, vous verrez sans doute une ligne du genre :
 
-
-```
-__git_ps1: command not found
-```
-
+  ```
+  __git_ps1: command not found
+  ```
