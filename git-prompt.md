@@ -20,7 +20,7 @@ Rechargez le bashrc pour voir les changements :
 
 __Screenshot :__
 
-![screenshot](http://mediadoneright.com/sites/mediadoneright.com/files/manual/GIT_PS1_CUSTOMIZATION.png)
+![screenshot](https://cloud.githubusercontent.com/assets/6225979/7671431/4c5fc2ce-fcd0-11e4-81f0-db91da522592.png)
 
 __Notes :__
 
