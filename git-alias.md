@@ -68,6 +68,16 @@ git c
 ```
 
 ```bash
+# git clone
+git cl
+
+# !"f() { git clone "git@github.com:$@.git"; }; f"
+# (Clone un dépôt Github via le remote SSH)
+# Utilisation : git clgh dorian-marchal/git-config
+git clgh <user>/<repository>
+```
+
+```bash
 # git checkout
 git co
 
@@ -110,7 +120,8 @@ git g
 ```
 
 ```bash
-# gitk --argscmd='git for-each-ref --format="%(refname)" refs/heads refs/tags' (Affiche les branches locales et les tags, seulement)
+# gitk --argscmd='git for-each-ref --format="%(refname)" refs/heads refs/tags'
+# (Affiche les branches locales et les tags, seulement)
 git k
 # gitk --all (Affiche aussi les remote branches)
 git ka

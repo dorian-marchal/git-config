@@ -12,6 +12,9 @@
 
         c = commit
 
+        cl = clone
+        clgh = !"f() { git clone "git@github.com:$@.git"; }; f"
+
         co = checkout
         cob = checkout -b
 
