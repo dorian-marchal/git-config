@@ -8,7 +8,7 @@
 
         b = branch
         bd = branch -d
-        bD = branch -D
+        bdel = branch -D
 
         c = commit
 

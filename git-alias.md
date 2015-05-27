@@ -59,7 +59,7 @@ git b
 git bd
 
 # git branch -D
-git bD
+git bdel
 ```
 
 ```bash
