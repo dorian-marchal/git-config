@@ -196,6 +196,20 @@ git stp
 ```
 
 ```bash
+# git submodule
+git sub
+
+# git submodule init
+git subi
+
+# git submodule update
+git subu
+```
+
+```bash
+# git reset HEAD -- (Annuler un `git add .`)
+git una
+
 # git reset --soft HEAD^ (Annuler un commit)
 git unc
 ```
