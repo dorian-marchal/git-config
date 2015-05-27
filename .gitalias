@@ -2,7 +2,7 @@
         a = add
 
         alias = !git config -l | grep ^alias.
-	aliasg = !"f() { git alias | grep -oP --color=never \"alias\\.$@=\\K(.*)\"; }; f"
+        aliasg = !"f() { git alias | grep -oP --color=never \"alias\\.$@=\\K(.*)\"; }; f"
 
         amend = commit --amend
 
@@ -30,8 +30,8 @@
 
         k = !gitk --argscmd='git for-each-ref --format=\"%(refname)\" refs/heads refs/tags'
         ka = !gitk --all
-	ksc = !"f() { git k --select-commit="$@"; }; f"
-	kasc = !"f() { git ka --select-commit="$@"; }; f"
+        ksc = !"f() { git k --select-commit="$@"; }; f"
+        kasc = !"f() { git ka --select-commit="$@"; }; f"
 
         m = merge --no-ff -e
         mff = merge
@@ -58,6 +58,11 @@
         sts = stash show -p
         stp = stash pop
 
+        sub = submodule
+        subi = submodule init
+        subu = submodule update
+
+        una = reset HEAD --
         unc = reset --soft HEAD^
 
         who = shortlog -sne
