@@ -30,6 +30,7 @@
         f = fetch
 
         g = !git gui
+        gci = !git gui citool
 
         k = !gitk --argscmd='git for-each-ref --format=\"%(refname)\" refs/heads refs/tags'
         ka = !gitk --all

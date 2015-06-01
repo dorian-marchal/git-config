@@ -117,6 +117,9 @@ git f
 ```bash
 # git gui
 git g
+
+# git gui citool (quit git gui on commit)
+git gci
 ```
 
 ```bash
