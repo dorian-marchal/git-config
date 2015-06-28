@@ -46,6 +46,7 @@
         lg = !"f() { git lnp | grep --color -i \"$@\"; }; f"
         lnp = !git --no-pager l
         lh = !"f() { if [ -z \"$1\" ]; then linecount=\"20\"; else linecount=$1; fi; git lnp | head -n \"$linecount\"; }; f"
+        lu = log -u
 
         p = push
 
