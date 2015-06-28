@@ -152,6 +152,9 @@ git lh
 g lh
 # ou (pour les n premières lignes):
 g lh <n>
+
+# git log -u <file>
+g lu <file>
 ```
 
 ```bash
@@ -187,6 +190,9 @@ git rb
 ```bash
 # git status
 git s
+
+# git status -s
+git ss
 ```
 
 ```bash
