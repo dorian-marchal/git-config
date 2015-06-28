@@ -190,6 +190,9 @@ git rb
 ```bash
 # git status
 git s
+
+# git status -s
+git ss
 ```
 
 ```bash
