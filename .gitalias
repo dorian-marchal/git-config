@@ -25,6 +25,7 @@
 
         d = diff --color
         ds = diff --color --ignore-all-space --stat
+        dss = diff --color --ignore-all-space --short-stat
 
         ed = branch --no-merged dev
 

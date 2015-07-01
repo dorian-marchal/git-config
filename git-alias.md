@@ -103,8 +103,11 @@ git current-release
 # git diff --color
 git d
 
-# git diff --color --stat <commit>
+# git diff --color  --ignore-all-space --stat <commit>
 git ds <commit>
+
+# git diff --color  --ignore-all-space--short-stat <commit>
+git dss <commit>
 ```
 
 ```bash
