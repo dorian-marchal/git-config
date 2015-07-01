@@ -65,6 +65,9 @@ git bdel
 ```bash
 # git commit
 git c
+
+# git commit -m
+git cm
 ```
 
 ```bash
