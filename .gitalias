@@ -11,6 +11,7 @@
         bdel = branch -D
 
         c = commit
+        cm = commit -m
 
         cl = clone
         clgh = !"f() { git clone "git@github.com:$@.git"; }; f"
