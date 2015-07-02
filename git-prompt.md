@@ -28,7 +28,7 @@ __Notes :__
 
   ```bash
   # Ajouter cet alias dans le .bashrc pour passer git en anglais
-  alias git='LANG=en_US.UTF-8 git'
+  alias git='LANGUAGE=en_US.UTF-8 LANG=en_US.UTF-8 git'
   ```
 
 - L'autocomplétion bash doit être activée pour que ça fonctionne. Dans le cas contraire, vous verrez sans doute une ligne du genre :
