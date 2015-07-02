@@ -35,6 +35,12 @@ complete -o bashdefault -o default -o nospace -F _git g 2>/dev/null || complete 
 ```bash
 # git add
 git a
+
+# git add -i
+git ai
+
+# git add -p
+git ap
 ```
 
 ```bash
@@ -103,8 +109,11 @@ git current-release
 # git diff --color
 git d
 
-# git diff --color --stat <commit>
+# git diff --color  --ignore-all-space --stat <commit>
 git ds <commit>
+
+# git diff --color  --ignore-all-space--short-stat <commit>
+git dss <commit>
 ```
 
 ```bash
@@ -116,6 +125,12 @@ git ed
 # git fetch
 git f
 ```
+
+```bash
+# echo "4b825dc642cb6eb9a060e54bf8d69288fbee4904" (First Commit : hash de la base de l'arbre git)
+git fc
+```
+
 
 ```bash
 # git gui

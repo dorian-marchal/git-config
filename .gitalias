@@ -1,5 +1,7 @@
 [alias]
         a = add
+        ai = add -i
+        ap = add -p
 
         alias = !git config -l | grep ^alias.
         aliasg = !"f() { git alias | grep -oP --color=never \"alias\\.$@=\\K(.*)\"; }; f"
@@ -25,10 +27,13 @@
 
         d = diff --color
         ds = diff --color --ignore-all-space --stat
+        dss = diff --color --ignore-all-space --short-stat
 
         ed = branch --no-merged dev
 
         f = fetch
+
+        fc = !echo "4b825dc642cb6eb9a060e54bf8d69288fbee4904"
 
         g = !git gui
         gci = !git gui citool
