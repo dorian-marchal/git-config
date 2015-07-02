@@ -35,6 +35,12 @@ complete -o bashdefault -o default -o nospace -F _git g 2>/dev/null || complete 
 ```bash
 # git add
 git a
+
+# git add -i
+git ai
+
+# git add -p
+git ap
 ```
 
 ```bash

@@ -1,5 +1,7 @@
 [alias]
         a = add
+        ai = add -i
+        ap = add -p
 
         alias = !git config -l | grep ^alias.
         aliasg = !"f() { git alias | grep -oP --color=never \"alias\\.$@=\\K(.*)\"; }; f"
