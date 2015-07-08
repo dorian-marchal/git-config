@@ -206,6 +206,11 @@ git rb
 ```
 
 ```bash
+# git reset --hard
+git rh
+```
+
+```bash
 # git status
 git s
 

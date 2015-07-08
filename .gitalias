@@ -59,6 +59,7 @@
         pl = pull
 
         rb = rebase
+        rh = reset --hard
 
         s = status
         ss = status -s
