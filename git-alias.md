@@ -193,6 +193,9 @@ git mt
 ```bash
 # git push
 git p
+
+# git push --tags
+git pt
 ```
 
 ```bash

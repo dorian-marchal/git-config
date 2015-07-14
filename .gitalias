@@ -55,6 +55,7 @@
         lu = log -u
 
         p = push
+        pt = push --tags
 
         pl = pull
 
