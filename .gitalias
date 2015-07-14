@@ -75,6 +75,9 @@
         subi = submodule init
         subu = submodule update
 
+        t = tag
+        td = tag -d
+
         una = reset HEAD --
         unc = reset --soft HEAD^
 

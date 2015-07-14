@@ -250,6 +250,14 @@ git subu
 ```
 
 ```bash
+# git tag
+git t
+
+# git tag -d
+git td
+```
+
+```bash
 # git reset HEAD -- (Annuler un `git add .`)
 git una
 
