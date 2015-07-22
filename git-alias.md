@@ -204,6 +204,11 @@ git pl
 ```
 
 ```bash
+# git diff -p -R | grep -E "^(diff|(old|new) mode)" | git apply
+git revert-chmod
+```
+
+```bash
 # git rebase
 git rb
 ```
