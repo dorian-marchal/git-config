@@ -80,7 +80,7 @@ git cm
 # git clone
 git cl
 
-# !"f() { git clone "git@github.com:$@.git"; }; f"
+# !"f() { git clone "git@github.com:$1.git $2"; }; f"
 # (Clone un dépôt Github via le remote SSH)
 # Utilisation : git clgh dorian-marchal/git-config
 git clgh <user>/<repository>
