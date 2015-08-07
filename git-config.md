@@ -4,6 +4,15 @@
 
 ---
 
+### Configurer le comportement par défaut d'un `push`
+
+Pour qu'un `git push` effectué sur une branche pousse automatiquement les noveaux
+commits de la branche sur l'upstream, exécuter cette commande :
+
+```bash
+git config --global push.default upstream
+```
+
 ### Configurer l'éditeur utilisé par Git
 
 Il est possible de changer l'éditeur utilisé par Git :
