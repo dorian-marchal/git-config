@@ -97,6 +97,8 @@ git cob
 ```bash
 # git cherry-pick
 git cp
+# git cherry-pick -n
+git cpn
 ```
 
 ```bash

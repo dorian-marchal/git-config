@@ -22,6 +22,7 @@
         cob = checkout -b
 
         cp = cherry-pick
+        cpn = cherry-pick -n
 
         current-release = !git describe --tags --match "v[0-9]*" --abbrev=0
 
