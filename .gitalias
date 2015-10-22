@@ -22,7 +22,7 @@
         cob = checkout -b
 
         cp = cherry-pick
-        cpn = cherry-pick -n
+        cpn = !"f() { git cherry-pick -n "$@" && git reset HEAD --; }; f"
 
         current-release = !git describe --tags --match "v[0-9]*" --abbrev=0
 

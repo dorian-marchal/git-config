@@ -97,7 +97,7 @@ git cob
 ```bash
 # git cherry-pick
 git cp
-# git cherry-pick -n
+# git cherry-pick -n && git reset HEAD -- (cherry pick and unstage)
 git cpn
 ```
 
