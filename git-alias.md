@@ -106,6 +106,10 @@ git cpn
 git current-release
 ```
 
+```bash
+# git rev-parse --abbrev-ref HEAD
+git current-branch
+```
 
 ```bash
 # git diff --color

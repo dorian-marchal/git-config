@@ -26,6 +26,8 @@
 
         current-release = !git describe --tags --match "v[0-9]*" --abbrev=0
 
+        current-branch = rev-parse --abbrev-ref HEAD
+
         d = diff --color
         ds = diff --color --ignore-all-space --stat
         dss = diff --color --ignore-all-space --shortstat
