@@ -200,6 +200,9 @@ git mt
 # git push
 git p
 
+# git push --force
+git pf
+
 # git push --tags
 git pt
 ```
