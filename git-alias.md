@@ -226,6 +226,12 @@ git revert-chmod
 ```bash
 # git rebase
 git rb
+# git rebase --continue
+git rbc
+# git rebase --skip
+git rbs
+# git rebase --abort
+git rba
 ```
 
 ```bash
