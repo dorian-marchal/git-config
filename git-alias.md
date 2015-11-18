@@ -66,6 +66,12 @@ git bd
 
 # git branch -D
 git bdel
+
+# git branch | grep <regex>
+git bg
+
+# git branch --all | grep <regex>
+git bga
 ```
 
 ```bash
