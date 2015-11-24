@@ -13,6 +13,8 @@
         bdel = branch -D
         bg = !"f() { git branch | grep "$@"; }; f"
         bga = !"f() { git branch --all | grep "$@"; }; f"
+        bvv = branch -vv
+        bavv = branch -a -vv
 
         c = commit
         cm = commit -m

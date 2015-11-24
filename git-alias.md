@@ -72,6 +72,12 @@ git bg
 
 # git branch --all | grep <regex>
 git bga
+
+# git branch -vv
+git bvv
+
+# git branch -a -vv
+git bavv
 ```
 
 ```bash
