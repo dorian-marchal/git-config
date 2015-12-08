@@ -65,6 +65,12 @@ git b
 # (liste des dernières branches modifiées)
 git bh
 
+# git branch --merged
+git bm
+
+# git branch --no-merged
+git bnm
+
 # git branch -d
 git bd
 
