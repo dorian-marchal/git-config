@@ -52,6 +52,7 @@
         ka = !gitk --all
         ksc = !"f() { git k --select-commit="$@"; }; f"
         kasc = !"f() { git ka --select-commit="$@"; }; f"
+        kt = !"f() { git ka --since=\"$(date +'%Y-%m-%d 00:00:00')\" --author='marchal.dorian'; }; f"
 
         m = merge --no-ff -e
         mff = merge

@@ -178,6 +178,9 @@ git ka
 git ksc
 # gitk --all --select-commit=<commit>
 git kasc
+# git ka --since="$(date +'%Y-%m-%d 00:00:00')" --author="marchal.dorian"
+# (Affiche les commits du jour pour marchal.dorian)
+git kt
 ```
 
 ```bash
