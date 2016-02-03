@@ -238,6 +238,9 @@ git pu
 ```bash
 # git pull
 git pl
+
+# git pull --rebase
+git plr
 ```
 
 ```bash
