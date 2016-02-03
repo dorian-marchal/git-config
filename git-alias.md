@@ -230,6 +230,9 @@ git pf
 
 # git push --tags
 git pt
+
+# git push --set-upstream
+git pu
 ```
 
 ```bash

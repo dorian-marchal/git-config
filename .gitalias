@@ -68,6 +68,7 @@
         p = push
         pf = push --force
         pt = push --tags
+        pu = push --set-upstream
 
         pl = pull
 
