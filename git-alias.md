@@ -233,6 +233,9 @@ git pt
 
 # git push --set-upstream
 git pu
+
+# git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)
+git puo
 ```
 
 ```bash
