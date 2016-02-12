@@ -121,6 +121,8 @@ git cob
 git cp
 # git cherry-pick -n && git reset HEAD -- (cherry pick and unstage)
 git cpn
+# git add . --all && git commit -m tmp (commit temporaire, par exemple pour fixup)
+git ctmp
 ```
 
 ```bash

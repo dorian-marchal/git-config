@@ -30,6 +30,7 @@
 
         cp = cherry-pick
         cpn = !"f() { git cherry-pick -n "$@" && git reset HEAD --; }; f"
+        ctmp = !git add . --all && git commit -m tmp
 
         current-release = !git describe --tags --match "v[0-9]*" --abbrev=0
 
