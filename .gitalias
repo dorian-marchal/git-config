@@ -80,6 +80,7 @@
         rba = rebase --abort
         rbc = rebase --continue
         rbs = rebase --skip
+        rbi = rebase -i
 
         rh = reset --hard
 

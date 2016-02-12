@@ -260,6 +260,8 @@ git rbc
 git rbs
 # git rebase --abort
 git rba
+# git rebase -i
+git rbi
 ```
 
 ```bash
