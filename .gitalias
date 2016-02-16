@@ -9,7 +9,7 @@
         amend = commit --amend
 
         b = branch
-        bh = !"f() { git for-each-ref --format='%(refname:short) %1B[0;33m(%(committerdate:relative))%1B[m' --sort -committerdate refs/heads/ | head; }; f"
+        bh = !"f() { git for-each-ref --format='%(refname:short) %1B[0;33m(%(committerdate:relative))%1B[m' --sort -committerdate refs/heads/ | head | nl -v0; }; f"
         bm = branch --merged
         bnm = branch --no-merged
         bd = branch -d

@@ -61,8 +61,8 @@ git amend
 # git branch
 git b
 
-# git for-each-ref --format='%(refname:short) %1B[0;33m(%(committerdate:relative))%1B[m' --sort -committerdate refs/heads/ | head;
-# (liste des dernières branches modifiées)
+# git for-each-ref --format='%(refname:short) %1B[0;33m(%(committerdate:relative))%1B[m' --sort -committerdate refs/heads/ | head | nl -v0;
+# (liste numérotée des dernières branches modifiées)
 git bh
 
 # git branch --merged
