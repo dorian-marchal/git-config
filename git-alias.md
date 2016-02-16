@@ -114,6 +114,11 @@ git co
 
 # git checkout -b
 git cob
+
+# git for-each-ref --format='%(refname:short) %1B[0;33m(%(committerdate:relative))%1B[m'\
+# --sort -committerdate refs/heads/ | head | nl -v0 | grep -oP --color=NEVER "^\s*$1\s+\K([^\s]+)"
+# Permet de checkout un des commits listés avec git bh
+git coh
 ```
 
 ```bash

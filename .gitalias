@@ -27,6 +27,7 @@
 
         co = checkout
         cob = checkout -b
+        coh = !"f() { git co $(git bh | grep -oP --color=NEVER \"^\\s*$1\\s+\\K([^\\s]+)\"); }; f"
 
         cp = cherry-pick
         cpn = !"f() { git cherry-pick -n "$@" && git reset HEAD --; }; f"
