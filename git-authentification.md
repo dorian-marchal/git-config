@@ -21,14 +21,6 @@ chmod 600 ~/.ssh/id_rsa
 chmod 644 ~/.ssh/id_rsa.pub
 ```
 
-- Ajouter la nouvelle clé à l'agent SSH
-
-```bash
-eval "$(ssh-agent -s)"
-# Agent pid 59566
-ssh-add ~/.ssh/id_rsa
-```
-
 - Récupérer tout le contenu de la clé publique :
 
 ```
