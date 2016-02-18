@@ -96,6 +96,9 @@ git c
 
 # git commit -m
 git cm
+
+# git add . --all && git commit -m "to-cancel-commit" (commit temporaire, par exemple pour fixup)
+git ctmp
 ```
 
 ```bash
@@ -126,8 +129,6 @@ git coh
 git cp
 # git cherry-pick -n && git reset HEAD -- (cherry pick and unstage)
 git cpn
-# git add . --all && git commit -m tmp (commit temporaire, par exemple pour fixup)
-git ctmp
 ```
 
 ```bash
