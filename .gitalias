@@ -3,36 +3,50 @@
         ai = add -i
         ap = add -p
 
+        # Liste les alias git
         alias = !git config -l | grep ^alias.
+        # Voir la description d'un alias
+        # Usage : git aliasg l
         aliasg = !"f() { git alias | grep -oP --color=never \"alias\\.$@=\\K(.*)\"; }; f"
 
         amend = commit --amend
 
         b = branch
+        # Liste numérotée des dernières branches modifiées
         bh = !"f() { git for-each-ref --format='%(refname:short) %1B[0;33m(%(committerdate:relative))%1B[m' --sort -committerdate refs/heads/ | head | nl -v0; }; f"
         bm = branch --merged
         bnm = branch --no-merged
         bd = branch -d
         bdel = branch -D
+        # Grep sur les branches locales
         bg = !"f() { git branch | grep "$@"; }; f"
+        # Grep sur toutes les branches
         bga = !"f() { git branch --all | grep "$@"; }; f"
         bvv = branch -vv
         bavv = branch -a -vv
 
         c = commit
         cm = commit -m
+        # Commit temporaire (par exemple pour fixup)
         ctmp = !git add . --all && git commit -m "to-cancel-commit"
 
         cl = clone
+        # Clone un dépôt Github via le remote SSH
+        # Usage : git clgh dorian-marchal/git-config
         clgh = !"f() { git clone "git@github.com:$1.git $2"; }; f"
 
         co = checkout
         cob = checkout -b
+        # Permet de checkout un des commits listés avec git bh
+        # Usage : git cog 2
         coh = !"f() { git co $(git bh | grep -oP --color=NEVER \"^\\s*$1\\s+\\K([^\\s]+)\"); }; f"
 
         cp = cherry-pick
+        # Cherry pick and unstage
+        # Usage : git cpn ref
         cpn = !"f() { git cherry-pick -n "$@" && git reset HEAD --; }; f"
 
+        # Dernier tag du type v[0-9]+
         current-release = !git describe --tags --match "v[0-9]*" --abbrev=0
 
         current-branch = rev-parse --abbrev-ref HEAD
@@ -41,29 +55,43 @@
         ds = diff --color --ignore-all-space --stat
         dss = diff --color --ignore-all-space --shortstat
 
+        # Fonctionnalités En Développement
         ed = branch --no-merged dev
 
         f = fetch
 
+        # First Commit : hash de la base de l'arbre git
         fc = !echo "4b825dc642cb6eb9a060e54bf8d69288fbee4904"
 
         g = !git gui
+        # Quit git gui on commit
         gci = !git gui citool
 
+        # gitk qui affiche les branches locales et les tags, seulement
         k = !gitk --argscmd='git for-each-ref --format=\"%(refname)\" refs/heads refs/tags'
+        # Affiche aussi les remote branches
         ka = !gitk --all
+        # Highlight un commit
+        # Usage : git ksc ref
         ksc = !"f() { git k --select-commit="$@"; }; f"
         kasc = !"f() { git ka --select-commit="$@"; }; f"
+        # Affiche les commits du jour pour marchal.dorian
         kt = !"f() { git ka --since=\"$(date +'%Y-%m-%d 00:00:00')\" --author='marchal.dorian'; }; f"
 
+        # no fast forward avec message de commit
         m = merge --no-ff -e
         mff = merge
 
         mt = mergetool -y
 
+        # Formats particuliers pour git log
         l = log --all --graph --abbrev=5 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit
+        # Permet de rechercher avec grep dans les logs
+        # Usage : git lg pattern
         lg = !"f() { git lnp | grep --color -i \"$@\"; }; f"
+        # Affiche tous les logs sans pagination, utile pour `grep`
         lnp = !git --no-pager l
+        # Affiche les 20 premières lignes de log : Log Head
         lh = !"f() { if [ -z \"$1\" ]; then linecount=\"20\"; else linecount=$1; fi; git lnp | head -n \"$linecount\"; }; f"
         lu = log -u
 
@@ -71,6 +99,7 @@
         pf = push --force
         pt = push --tags
         pu = push --set-upstream
+        # Pousse la branche courante en settant l'uptream à origin/<current-branch-name>
         puo = !"f() { git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD); }; f"
 
         pl = pull
@@ -103,7 +132,10 @@
         t = tag
         td = tag -d
 
+        # Annuler un `git add .`
         una = reset HEAD --
+        # Annuler un commit
         unc = reset --soft HEAD^
 
+        # Nombre de commits par contributeur
         who = shortlog -sne
