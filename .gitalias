@@ -14,6 +14,8 @@
         b = branch
         # Liste numérotée des dernières branches modifiées
         bh = !"f() { git for-each-ref --format='%(refname:short) %1B[0;33m(%(committerdate:relative))%1B[m' --sort -committerdate refs/heads/ | head | nl -v0; }; f"
+        # git bh suivi d'un git git coh
+        bhc = !"f() { git bh && echo '\nEnter index of branch to checkout: ' && read branch_index && git coh $branch_index; }; f"
         bm = branch --merged
         bnm = branch --no-merged
         bd = branch -d
