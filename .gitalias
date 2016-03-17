@@ -138,6 +138,8 @@
         una = reset HEAD --
         # Annuler un commit
         unc = reset --soft HEAD^
+        # Annuler un commit et retirer les fichiers de l'index
+        unca = !git unc && git una
 
         # Nombre de commits par contributeur
         who = shortlog -sne
