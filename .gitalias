@@ -96,6 +96,8 @@
         # Affiche les 20 premières lignes de log : Log Head
         lh = !"f() { if [ -z \"$1\" ]; then linecount=\"20\"; else linecount=$1; fi; git lnp | head -n \"$linecount\"; }; f"
         lu = log -u
+        # Affichage du dernier commit
+        l1 = log --pretty=tformat:'%C(yellow)%h%Creset - %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit -1
 
         p = push
         pf = push --force
