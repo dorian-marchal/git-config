@@ -58,9 +58,6 @@
         ds = diff --color --ignore-all-space --stat
         dss = diff --color --ignore-all-space --shortstat
 
-        # Fonctionnalités En Développement
-        ed = branch --no-merged dev
-
         f = fetch
 
         # Permet de retrouver un commit perdu en parcourant tous les dangling commits avec gitk
