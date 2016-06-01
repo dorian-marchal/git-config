@@ -30,7 +30,7 @@
         c = commit
         cm = commit -m
         # Commit temporaire (par exemple pour fixup)
-        ctmp = !git add . --all && git commit -m "to-cancel-commit"
+        ctmp = !git add . --all && git commit -m "temporary-commit"
 
         cl = clone
         # Clone un dépôt Github via le remote SSH

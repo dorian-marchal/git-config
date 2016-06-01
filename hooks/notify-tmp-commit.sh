@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -n "$(git log -1 --pretty=%B | grep "^to-cancel-commit$")" ]
+if [ -n "$(git log -1 --pretty=%B | grep "^temporary-commit$")" ]
 then
     echo 'ERROR : Unable to commit.'
     echo 'The last commit is a temporary one.'
