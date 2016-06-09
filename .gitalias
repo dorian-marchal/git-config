@@ -107,7 +107,7 @@
         # Pousse la branche courante en settant l'uptream à origin/<current-branch-name>
         puo = !"f() { git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD); }; f"
 
-        pl = pull
+        pl = pull --ff-only
         plr = pull --rebase
 
         revert-chmod = !"git diff -p -R | grep -E \"^(diff|(old|new) mode)\" | git apply"
