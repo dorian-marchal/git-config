@@ -55,6 +55,35 @@
         current-branch = rev-parse --abbrev-ref HEAD
         cb = !git current-branch
 
+        # Vérifie si la branche courante est rebase sur la branche passée en paramètre (sortie 0 = rebased, 1 = not rebased).
+        # Attention, cet alias ne fetch pas.
+        # Usage : git is-rebased <remote> <branch>
+        is-rebased = !"f() { if [ \"$(git show-ref -s $1/$2)\" = \"$(git merge-base HEAD $1/$2)\" ]; then exit 0; else exit 1; fi; }; f"
+
+        # Vérifie si la branche courante est bien pushée sur la tracking branch. (sortie 0 = pushed, 1 = not pushed).
+        # Attention, cet alias ne fetch pas.
+        # Usage : git is-pushed
+        is-pushed = !"f() { if [ \"$(git show-ref -s `git rev-parse --abbrev-ref --symbolic-full-name @{u}`)\" = \"$(git show-ref -s --head --heads HEAD)\" ]; then exit 0; else exit 1; fi; }; f"
+
+        # Vérifie que la branche locale courante est bien rebased sur la branche passée en paramètre
+        # et que cette branche a bien été poussée sur sa tracking branch.
+        # Usage : git can-i-merge-on <remote> <branch>
+        can-i-merge-on = !"f() { \
+            if git fetch $1; \
+                then echo; \
+                else echo \"\\033[91m✗\\033[0m Error while fetching \\033[1m$1\\033[0m\"; exit; \
+            fi; \
+            if git is-rebased $@; \
+                then echo \"\\033[92m✓\\033[0m Rebased on \\033[1m$1/$2\\033[0m\"; \
+                else echo \"\\033[91m✗\\033[0m Not rebased on \\033[1m$1/$2\\033[0m\"; exit; \
+            fi; \
+            if git is-pushed; \
+                then echo \"\\033[92m✓\\033[0m Pushed on \\033[1m$(git rev-parse --abbrev-ref --symbolic-full-name @{u})\\033[0m\"; \
+                else echo \"\\033[91m✗\\033[0m Not pushed on \\033[1m$(git rev-parse --abbrev-ref --symbolic-full-name @{u})\\033[0m\"; exit; \
+            fi; \
+            echo \"\\033[92m✓\\033[0m You can merge! :)\"; \
+        }; f"
+
         d = diff --color
         ds = diff --color --ignore-all-space --stat
         dss = diff --color --ignore-all-space --shortstat
