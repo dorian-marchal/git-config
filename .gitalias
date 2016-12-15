@@ -129,7 +129,7 @@
 
         lu = log -u
         # Affichage du dernier commit
-        l1 = log --pretty=tformat:'%C(yellow)%h%Creset - %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit -1
+        ll = log --pretty=tformat:'%C(yellow)%h%Creset - %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit -1
 
         p = push
         pf = push --force
