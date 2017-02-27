@@ -5,9 +5,9 @@
 
         # Liste les alias git
         alias = !git config -l | grep ^alias.
-        # Voir la description d'un alias
-        # Usage : git aliasg l
-        aliasg = !"f() { git alias | grep -oP --color=never \"alias\\.$@=\\K(.*)\"; }; f"
+        # What Is : Voir la description d'un alias
+        # Usage : git wi l
+        wi = !"f() { git alias | grep -oP --color=never \"alias\\.$@=\\K(.*)\"; }; f"
 
         amend = commit --amend
 
