@@ -115,7 +115,7 @@
         m = merge --no-ff -e
         mff = merge
 
-        mt = mergetool -y
+        mt = !"f() { LANG=en_US.UTF-8 git mergetool -y $@; }; f"
 
         # Formats particuliers pour git log
         l = log --all --graph --abbrev=5 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit
