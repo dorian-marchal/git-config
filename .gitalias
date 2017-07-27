@@ -10,6 +10,7 @@
         wi = !"f() { git alias | grep -oP --color=never \"alias\\.$@=\\K(.*)\"; }; f"
 
         amend = commit --amend
+        ane = commit --amend --no-edit
 
         b = branch
         # Liste numérotée des dernières branches modifiées
