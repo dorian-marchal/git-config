@@ -44,8 +44,13 @@ __Notes :__
   . ~/.bashrc
   ```
 
-- L'autocomplétion bash doit être activée pour que ça fonctionne. Dans le cas contraire, vous verrez sans doute une ligne du genre :
+- L'autocomplétion bash doit être activée pour que ça fonctionne. Dans le cas contraire, vous verrez sans doute une ligne de ce genre :
 
   ```
   __git_ps1: command not found
+  ```
+  
+  Installer le package `bash-completion` peut suffire :
+  ```bash
+  apt-get install bash-completion
   ```
