@@ -144,6 +144,10 @@
 
         revert-chmod = !"git diff -p -R | grep -E \"^(diff|(old|new) mode)\" | git apply"
 
+        r = remote
+        rv = remote -v
+        ra = remote add
+
         rb = rebase
         rba = rebase --abort
         rbc = rebase --continue
