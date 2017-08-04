@@ -30,6 +30,11 @@
 
         c = commit
         cf = commit --fixup
+
+        # Permet de fixup un des commits listés avec git lh
+        # Usage : git cfh 2
+        cfh = !"f() { git cf $(git lh $(($1+1)) | grep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
+
         cm = commit -m
         # Commit temporaire (par exemple pour fixup)
         ctmp = !git add . --all && git commit -m "temporary-commit"
@@ -119,18 +124,24 @@
         mt = !"f() { LANG=en_US.UTF-8 git mergetool -y $@; }; f"
 
         # Formats particuliers pour git log
-        l = log --all --graph --abbrev=5 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit
+        ll = log --all --graph --abbrev=5 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit
         # Permet de rechercher avec grep dans les logs
         # Usage : git lg pattern
         lg = !"f() { git lnp | grep --color -i \"$@\"; }; f"
         # Affiche tous les logs sans pagination, utile pour `grep`
         lnp = !git --no-pager l
         # Log Head : Affiche les x premières lignes de log (6 par défaut).
-        lh = !"f() { if [ -z \"$1\" ]; then linecount=\"6\"; else linecount=$1; fi; git --no-pager log --graph --abbrev=5 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit HEAD~$linecount...HEAD; }; f"
+        l = !"f() { if [ -z \"$1\" ]; then linecount=\"6\"; else linecount=$1; fi; git --no-pager log --graph --abbrev=5 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit HEAD~$linecount...HEAD; }; f"
 
         lu = log -u
         # Affichage du dernier commit
-        ll = log --pretty=tformat:'%C(yellow)%h%Creset - %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit -1
+        l1 = log --pretty=tformat:'%C(yellow)%h%Creset - %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit -1
+
+        # Liste numérotée des dernières branches modifiées
+        lh = !"f() { git log --oneline | head -n ${1:-10} | nl -v0; }; f"
+
+        # git lh suivi d'un git cfh
+        lhc = !"f() { git lh $1 && echo '\nEnter index of commit to fixup: ' && read commit_hash && git cfh $commit_hash; }; f"
 
         p = push
         pf = push --force
