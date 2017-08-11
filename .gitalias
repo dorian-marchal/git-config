@@ -139,7 +139,7 @@
         lh = !"f() { git log --oneline | head -n ${1:-10} | nl -v0; }; f"
 
         # git lh suivi d'un git cfh
-        lhc = !"f() { git lh $1 && echo '\nEnter index of commit to fixup: ' && read commit_hash && git cfh $commit_hash; }; f"
+        lhf = !"f() { git lh $1 && echo '\nEnter index of commit to fixup: ' && read commit_hash && git cfh $commit_hash; }; f"
 
         p = push
         pf = push --force
