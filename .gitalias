@@ -66,6 +66,11 @@
         # Usage : git is-rebased <remote> <branch>
         is-rebased = !"f() { if [ \"$(git show-ref -s $1/$2)\" = \"$(git merge-base HEAD $1/$2)\" ]; then exit 0; else exit 1; fi; }; f"
 
+        # Vérifie que la branche courante ne comporte pas de commits de fixup (sortie 0 = pas de fixup, 1 = fixups).
+        # Attention, cet alias ne fetch pas.
+        # Usage : git is-fixup-free <remote> <branch>
+        is-fixup-free = !"f() { if [ -z \"$(git log --no-color --oneline $1/$2..HEAD | grep \"fixup\\!\" )\" ]; then exit 0; else exit 1; fi; }; f"
+
         # Vérifie si la branche courante est bien pushée sur la tracking branch. (sortie 0 = pushed, 1 = not pushed).
         # Attention, cet alias ne fetch pas.
         # Usage : git is-pushed
@@ -78,6 +83,10 @@
             if git fetch $1; \
                 then echo; \
                 else echo \"\\033[91m✗\\033[0m Error while fetching \\033[1m$1\\033[0m\"; exit; \
+            fi; \
+            if git is-fixup-free $@; \
+                then echo \"\\033[92m✓\\033[0m No fixup commit\"; \
+                else echo \"\\033[91m✗\\033[0m Remaining fixup! commits\"; exit; \
             fi; \
             if git is-rebased $@; \
                 then echo \"\\033[92m✓\\033[0m Rebased on \\033[1m$1/$2\\033[0m\"; \
