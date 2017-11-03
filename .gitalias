@@ -78,8 +78,8 @@
 
         # Vérifie que la branche locale courante est bien rebased sur la branche passée en paramètre
         # et que cette branche a bien été poussée sur sa tracking branch.
-        # Usage : git can-i-merge-on <remote> <branch>
-        can-i-merge-on = !"f() { \
+        # Usage : git can-i-merge-in <remote> <branch>
+        can-i-merge-in = !"f() { \
             if git fetch $1; \
                 then echo; \
                 else echo \"\\033[91m✗\\033[0m Error while fetching \\033[1m$1\\033[0m\"; exit; \
