@@ -86,16 +86,23 @@ PathFull="\W"
 NewLine="\n"
 Jobs="\j"
 
+# Config.
+PathColor=$Yellow
+InGitPathColor=$BYellow
+
 
 # This PS1 snippet was adopted from code for MAC/BSD I saw from: http://allancraig.net/index.php?option=com_content&view=article&id=108:ps1-export-command-for-git&catid=45:general&Itemid=96
 # I tweaked it to work on UBUNTU 11.04 & 11.10 plus made it mo' better
 
 node_env() {
     if [ $NODE_ENV != 'development' ]; then
-        echo "[${NODE_ENV}] "
+        Color=$Yellow
     else
-        echo ""
+        Color=$IBlack
     fi
+    UnescapedColor=$(echo -e $Color | sed s/'\\\['// | sed s/'\\\]'//)
+    UnescapedNoColor=$(echo -e $Color_Off | sed s/'\\\['// | sed s/'\\\]'//)
+    echo -e "$UnescapedColor[${NODE_ENV}]$UnescapedNoColor "
 }
 
 export PS1=$IBlack$Time12h$Color_Off$Red'$(if [ $? -ne 0 ]; then echo " ⚫"; fi)'$Color_Off'$(git branch &>/dev/null;\
@@ -108,8 +115,8 @@ if [ $? -eq 0 ]; then \
   else \
     # @5 - Changes to working tree
     echo "'$IRed'"$(__git_ps1 " {%s}"); \
-  fi) '$BYellow$PathShort$Color_Off'\$ '$IRed'$(node_env)'$Color_Off'"; \
+  fi) '$InGitPathColor$PathShort$Color_Off' ''$(node_env)''\$ "; \
 else \
   # @2 - Prompt when not in GIT repo
-  echo " '$Yellow$PathShort$Color_Off'\$ "; \
+  echo " '$PathColor$PathShort$Color_Off'\$ "; \
 fi)'
