@@ -100,8 +100,8 @@
         }; f"
 
         d = diff --color
-        ds = diff --color --ignore-all-space --stat
-        dss = diff --color --ignore-all-space --shortstat
+        ds = diff --color --stat
+        dss = diff --color --shortstat
 
         f = fetch
 
