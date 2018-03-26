@@ -36,3 +36,15 @@ Il est possible de les rétablir avec ces commandes
 git diff --summary | grep --color 'mode change 100755 => 100644' | cut -d' ' -f7- | xargs -d'\n' chmod +x
 git diff --summary | grep --color 'mode change 100644 => 100755' | cut -d' ' -f7- | xargs -d'\n' chmod -x
 ```
+
+### Github-like diffs
+
+Avec git 2.9+,
+
+```shell
+# https://github.com/so-fancy/diff-so-fancy
+npm i -g diff-so-fancy
+
+git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
+git config --global color.ui true
+```
