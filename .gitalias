@@ -13,10 +13,6 @@
         ane = commit --amend --no-edit
 
         b = branch
-        # Liste numérotée des dernières branches modifiées
-        bh = !"f() { git for-each-ref --format='%(refname:short) %1B[0;33m(%(committerdate:relative))%1B[m' --sort -committerdate refs/heads/ | head -n ${1:-10} | nl -v0; }; f"
-        # git bh suivi d'un git git coh
-        bhc = !"f() { git bh $1 && echo '\nEnter index of branch to checkout: ' && read branch_index && git coh $branch_index; }; f"
         bm = branch --merged
         bnm = branch --no-merged
         bd = branch -d
@@ -27,6 +23,14 @@
         bga = !"f() { git branch --all | grep "$@"; }; f"
         bvv = branch -vv
         bavv = branch -a -vv
+
+        # Liste numérotée des dernières branches modifiées.
+        bh = !"f() { git for-each-ref --format='%(refname:short) %1B[0;33m(%(committerdate:relative))%1B[m' --sort -committerdate refs/heads/ | head -n ${1:-10} | nl -v0; }; f"
+        # Permet de checkout un des commits listés avec `git bh`.
+        # Usage : git coh 2
+        coh = !"f() { git checkout $(git bh $(($1+1)) | grep -oP --color=NEVER \"^\\s*$1\\s+\\K([^\\s]+)\"); }; f"
+        # `git bh` suivi d'un `git coh`.
+        bhc = !"f() { git bh $1 && echo '\nEnter index of branch to checkout: ' && read branch_index && git coh $branch_index; }; f"
 
         c = commit
         cf = commit --fixup
@@ -46,9 +50,6 @@
 
         co = checkout
         cob = checkout -b
-        # Permet de checkout un des commits listés avec git bh
-        # Usage : git coh 2
-        coh = !"f() { git co $(git bh $(($1+1)) | grep -oP --color=NEVER \"^\\s*$1\\s+\\K([^\\s]+)\"); }; f"
 
         cp = cherry-pick
         # Cherry pick and unstage
