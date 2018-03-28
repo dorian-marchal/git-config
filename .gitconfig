@@ -10,6 +10,7 @@
 	commitmsgwidth = 72
 	fontui = -family Ubuntu -size 10 -weight normal -slant roman -underline 0 -overstrike 0
 	fontdiff = -family Hasklig -size 10 -weight normal -slant roman -underline 0 -overstrike 0
+	encoding = utf-8
 
 [core]
 	editor = vim
