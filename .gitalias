@@ -16,7 +16,7 @@
         bm = branch --merged
         bnm = branch --no-merged
         bd = branch -d
-        bdel = branch -D
+        bD = branch -D
         # Grep sur les branches locales
         bg = !"f() { git branch | grep "$@"; }; f"
         # Grep sur toutes les branches
