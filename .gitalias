@@ -26,7 +26,7 @@
 
         # Liste numérotée des dernières branches modifiées.
         bh = !"f() { git for-each-ref --format='%(refname:short) %1B[0;33m(%(committerdate:relative))%1B[m' --sort -committerdate refs/heads/ | head -n ${1:-10} | nl -v0; }; f"
-        # Permet de checkout un des commits listés avec `git bh`.
+        # Permet de checkout une des branches listées avec `git bh`.
         # Usage : git coh 2
         coh = !"f() { git checkout $(git bh $(($1+1)) | grep -oP --color=NEVER \"^\\s*$1\\s+\\K([^\\s]+)\"); }; f"
         # `git bh` suivi d'un `git coh`.
@@ -38,6 +38,10 @@
         # Permet de fixup un des commits listés avec git lh
         # Usage : git cfh 2
         cfh = !"f() { git cf $(git lh $(($1+1)) | grep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
+
+        # Permet de reword un des commits listés avec git lh
+        # Usage : git crh 2
+        crh = !"f() { git reword $(git lh $(($1+1)) | grep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
 
         cm = commit -m
         # Commit temporaire (par exemple pour fixup)
@@ -153,6 +157,9 @@
 
         # git lh suivi d'un git cfh
         lhf = !"f() { git lh $1 && echo '\nEnter index of commit to fixup: ' && read commit_hash && git cfh $commit_hash; }; f"
+
+        # git lh suivi d'un git crh
+        lhr = !"f() { git lh $1 && echo '\nEnter index of commit to reword: ' && read commit_hash && git crh $commit_hash; }; f"
 
         p = push
         pf = push --force
