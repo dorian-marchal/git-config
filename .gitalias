@@ -27,21 +27,21 @@
         # Liste numérotée des dernières branches modifiées.
         bh = !"f() { git for-each-ref --format='%(refname:short) %1B[0;33m(%(committerdate:relative))%1B[m' --sort -committerdate refs/heads/ | head -n ${1:-10} | nl -v0; }; f"
         # Permet de checkout une des branches listées avec `git bh`.
-        # Usage : git coh 2
-        coh = !"f() { git checkout $(git bh $(($1+1)) | grep -oP --color=NEVER \"^\\s*$1\\s+\\K([^\\s]+)\"); }; f"
-        # `git bh` suivi d'un `git coh`.
-        bhc = !"f() { git bh $1 && echo '\nEnter index of branch to checkout: ' && read branch_index && git coh $branch_index; }; f"
+        # Usage : git p-coh 2
+        p-coh = !"f() { git checkout $(git bh $(($1+1)) | grep -oP --color=NEVER \"^\\s*$1\\s+\\K([^\\s]+)\"); }; f"
+        # `git bh` suivi d'un `git p-coh`.
+        bhc = !"f() { git bh $1 && echo '\nEnter index of branch to checkout: ' && read branch_index && git p-coh $branch_index; }; f"
 
         c = commit
         cf = commit --fixup
 
         # Permet de fixup un des commits listés avec git lh
-        # Usage : git cfh 2
-        cfh = !"f() { git cf $(git lh $(($1+1)) | grep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
+        # Usage : git p-cfh 2
+        p-cfh = !"f() { git cf $(git lh $(($1+1)) | grep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
 
         # Permet de reword un des commits listés avec git lh
-        # Usage : git crh 2
-        crh = !"f() { git reword $(git lh $(($1+1)) | grep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
+        # Usage : git p-crh 2
+        p-crh = !"f() { git reword $(git lh $(($1+1)) | grep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
 
         cm = commit -m
         # Commit temporaire (par exemple pour fixup)
@@ -68,18 +68,18 @@
 
         # Vérifie si la branche courante est rebase sur la branche passée en paramètre (sortie 0 = rebased, 1 = not rebased).
         # Attention, cet alias ne fetch pas.
-        # Usage : git is-rebased <remote> <branch>
-        is-rebased = !"f() { if [ \"$(git show-ref -s $1/$2)\" = \"$(git merge-base HEAD $1/$2)\" ]; then exit 0; else exit 1; fi; }; f"
+        # Usage : git p-is-rebased <remote> <branch>
+        p-is-rebased = !"f() { if [ \"$(git show-ref -s $1/$2)\" = \"$(git merge-base HEAD $1/$2)\" ]; then exit 0; else exit 1; fi; }; f"
 
         # Vérifie que la branche courante ne comporte pas de commits de fixup (sortie 0 = pas de fixup, 1 = fixups).
         # Attention, cet alias ne fetch pas.
-        # Usage : git is-fixup-free <remote> <branch>
-        is-fixup-free = !"f() { if [ -z \"$(git log --no-color --oneline $1/$2..HEAD | grep \"fixup\\!\" )\" ]; then exit 0; else exit 1; fi; }; f"
+        # Usage : git p-is-fixup-free <remote> <branch>
+        p-is-fixup-free = !"f() { if [ -z \"$(git log --no-color --oneline $1/$2..HEAD | grep \"(fixup|squash)\\!\" )\" ]; then exit 0; else exit 1; fi; }; f"
 
         # Vérifie si la branche courante est bien pushée sur la tracking branch. (sortie 0 = pushed, 1 = not pushed).
         # Attention, cet alias ne fetch pas.
-        # Usage : git is-pushed
-        is-pushed = !"f() { if [ \"$(git show-ref -s `git rev-parse --abbrev-ref --symbolic-full-name @{u}`)\" = \"$(git show-ref -s --head --heads HEAD)\" ]; then exit 0; else exit 1; fi; }; f"
+        # Usage : git p-is-pushed
+        p-is-pushed = !"f() { if [ \"$(git show-ref -s `git rev-parse --abbrev-ref --symbolic-full-name @{u}`)\" = \"$(git show-ref -s --head --heads HEAD)\" ]; then exit 0; else exit 1; fi; }; f"
 
         # Vérifie que la branche locale courante est bien rebased sur la branche passée en paramètre
         # et que cette branche a bien été poussée sur sa tracking branch.
@@ -89,15 +89,15 @@
                 then echo; \
                 else echo \"\\033[91m✗\\033[0m Error while fetching \\033[1m$1\\033[0m\"; exit; \
             fi; \
-            if git is-fixup-free $@; \
+            if git p-is-fixup-free $@; \
                 then echo \"\\033[92m✓\\033[0m No fixup commit\"; \
-                else echo \"\\033[91m✗\\033[0m Remaining fixup! commits\"; exit; \
+                else echo \"\\033[91m✗\\033[0m Remaining fixup! or squash! commits\"; exit; \
             fi; \
-            if git is-rebased $@; \
+            if git p-is-rebased $@; \
                 then echo \"\\033[92m✓\\033[0m Rebased on \\033[1m$1/$2\\033[0m\"; \
                 else echo \"\\033[91m✗\\033[0m Not rebased on \\033[1m$1/$2\\033[0m\"; exit; \
             fi; \
-            if git is-pushed; \
+            if git p-is-pushed; \
                 then echo \"\\033[92m✓\\033[0m Pushed on \\033[1m$(git rev-parse --abbrev-ref --symbolic-full-name @{u})\\033[0m\"; \
                 else echo \"\\033[91m✗\\033[0m Not pushed on \\033[1m$(git rev-parse --abbrev-ref --symbolic-full-name @{u})\\033[0m\"; exit; \
             fi; \
@@ -155,11 +155,11 @@
         # Liste numérotée des dernières branches modifiées
         lh = !"f() { git log --oneline | head -n ${1:-10} | nl -v0; }; f"
 
-        # git lh suivi d'un git cfh
-        lhf = !"f() { git lh $1 && echo '\nEnter index of commit to fixup: ' && read commit_hash && git cfh $commit_hash; }; f"
+        # git lh suivi d'un git p-cfh
+        lhf = !"f() { git lh $1 && echo '\nEnter index of commit to fixup: ' && read commit_hash && git p-cfh $commit_hash; }; f"
 
-        # git lh suivi d'un git crh
-        lhr = !"f() { git lh $1 && echo '\nEnter index of commit to reword: ' && read commit_hash && git crh $commit_hash; }; f"
+        # git lh suivi d'un git p-crh
+        lhr = !"f() { git lh $1 && echo '\nEnter index of commit to reword: ' && read commit_hash && git p-crh $commit_hash; }; f"
 
         p = push
         pf = push --force
