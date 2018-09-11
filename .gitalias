@@ -162,7 +162,6 @@
         puo = !"f() { git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD); }; f"
 
         pl = pull --ff-only
-        plr = pull --rebase
 
         revert-chmod = !"git diff -p -R | grep -E \"^(diff|(old|new) mode)\" | git apply"
 
@@ -170,16 +169,23 @@
         rv = remote -v
         ra = remote add
 
-        rb = rebase
+        # --keep-empty allows keeping reword commits (see `reword` alias).
+        rb = rebase --keep-empty
         rba = rebase --abort
         rbc = rebase --continue
         rbs = rebase --skip
-        rbi = rebase -i
-        rbas = rebase -i --autosquash
+        rbi = !git rb -i
+        rbas = !git rbi --autosquash
         # Rebase interactif en changeant l'author date de tous les commits.
         # Utile pour réordonner les commits dans l'interface de PR Github.
         # /!\ Peut fausser les stats de commit.
-        rbo = rebase -i -x 'git commit --amend -C HEAD --date=\"$(date -R)\"'
+        rbo = !git rbi -x 'git commit --amend -C HEAD --date=\"$(date -R)\"'
+
+        # Creates an empty "squash!" commit with an editable commit message
+        # defaulting to the message of the given ref.
+        # This allows rewording a commit without rewriting history (useful during code review).
+        # Note: rebases should be done with the --keep-empty flag to keep these commits.
+        reword = !"f() { git commit --allow-empty -m \"squash! $(git log --format=%B -n 1 $1)\" && (git commit --allow-empty --amend || git reset --hard HEAD^); }; f"
 
         rh = reset --hard
 
