@@ -181,12 +181,12 @@
         rba = rebase --abort
         rbc = rebase --continue
         rbs = rebase --skip
-        rbi = !git rb -i
-        rbas = !git rbi --autosquash
+        rbi = rebase -i --keep-empty
+        rbas = rebase -i --autosquash --keep-empty
         # Rebase interactif en changeant l'author date de tous les commits.
         # Utile pour réordonner les commits dans l'interface de PR Github.
         # /!\ Peut fausser les stats de commit.
-        rbo = !git rbi -x 'git commit --amend -C HEAD --date=\"$(date -R)\"'
+        rbo = rebase -i --keep-empty -x 'git commit --amend -C HEAD --date=\"$(date -R)\"'
 
         # Creates an empty "squash!" commit with an editable commit message
         # defaulting to the message of the given ref.
