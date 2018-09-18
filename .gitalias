@@ -172,10 +172,6 @@
 
         revert-chmod = !"git diff -p -R | grep -E \"^(diff|(old|new) mode)\" | git apply"
 
-        r = remote
-        rv = remote -v
-        ra = remote add
-
         # --keep-empty allows keeping reword commits (see `reword` alias).
         rb = rebase --keep-empty
         rba = rebase --abort
@@ -194,6 +190,7 @@
         # Note: rebases should be done with the --keep-empty flag to keep these commits.
         reword = !"f() { git commit --allow-empty -m \"squash! $(git log --format=%B -n 1 $1)\" && (git commit --allow-empty --amend || git reset --hard HEAD^); }; f"
 
+        r = reset
         rh = reset --hard
 
         s = status
@@ -213,12 +210,12 @@
         t = tag
         td = tag -d
 
-        # Annuler un `git add .`
-        una = reset HEAD --
-        # Annuler un commit
-        unc = reset --soft HEAD^
-        # Annuler un commit et retirer les fichiers de l'index
-        unca = !git unc && git una
+        # Unstage all files.
+        una = !echo  '/!\\\\ NOTHING DONE. Use git reset HEAD -- to undo a commit.'
+        # Undo a commit.
+        unc = !echo  '/!\\\\ NOTHING DONE. Use git reset --soft HEAD^ to undo a commit.'
+        # Undo a commit and unstage all files.
+        unca = !echo  '/!\\\\ NOTHING DONE. Use git reset HEAD^ -- to undo a commit.'
 
         # Nombre de commits par contributeur
         who = shortlog -sne
