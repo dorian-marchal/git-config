@@ -191,6 +191,7 @@
         reword = !"f() { git commit --allow-empty -m \"squash! $(git log --format=%B -n 1 $1)\" && (git commit --allow-empty --amend || git reset --hard HEAD^); }; f"
 
         r = reset
+        rs = reset --soft
         rh = reset --hard
 
         s = status
