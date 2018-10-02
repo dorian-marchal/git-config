@@ -26,6 +26,8 @@
 
         # Liste numérotée des dernières branches modifiées.
         bh = !"f() { git for-each-ref --format='%(refname:short) %1B[0;33m(%(committerdate:relative))%1B[m' --sort -committerdate refs/heads/ | head -n ${1:-10} | nl -v0; }; f"
+        # Liste des 10 dernières branches modifiées pour un remote donné.
+        bhr = !"f() { git for-each-ref --format='%(refname:short) %1B[0;33m(%(committerdate:relative))%1B[m' --sort -committerdate | grep --color=never "^$1/" | head -n 10; }; f"
         # Permet de checkout une des branches listées avec `git bh`.
         # Usage : git p-coh 2
         p-coh = !"f() { git checkout $(git bh $(($1+1)) | grep -oP --color=NEVER \"^\\s*$1\\s+\\K([^\\s]+)\"); }; f"
