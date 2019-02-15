@@ -109,6 +109,7 @@
         d = diff --color
         ds = diff --color --stat
         dss = diff --color --shortstat
+        dni = diff --no-index
         # Diff Tracking (diff from tracking branch).
         dt = !git diff --color $(git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD))
         dts = !git diff --stat --color $(git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD))
