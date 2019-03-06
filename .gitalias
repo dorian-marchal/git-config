@@ -113,6 +113,8 @@
         # Diff Tracking (diff from tracking branch).
         dt = !git diff --color $(git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD))
         dts = !git diff --stat --color $(git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD))
+        # Diff unmerged paths from HEAD.
+        dhu = !git diff HEAD -- $(git diff --name-only --diff-filter=U)
 
         f = fetch
 
