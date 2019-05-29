@@ -53,6 +53,7 @@
         # Clone un dépôt Github via le remote SSH
         # Usage : git clgh dorian-marchal/git-config
         clgh = !"f() { git clone "git@github.com:$1.git $2"; }; f"
+        cldunno = !"f() { git clone "git@git.dunno.fr:$1.git $2"; }; f"
 
         co = checkout
         cob = checkout -b
