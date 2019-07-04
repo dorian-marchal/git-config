@@ -174,7 +174,7 @@ _get_prompt() {
 
     if [ "$in_git_repo" -eq 0 ]; then
         git_prompt=$(echo -n "$(_git_prompt)")
-        path_prompt="${_byellow_}${path}${_off_}"
+        path_prompt="${_iyellow_}${path}${_off_}"
     else
         git_prompt=''
         path_prompt="${_yellow_}${path}${_off_}"
