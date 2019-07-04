@@ -93,10 +93,11 @@ _get_prompt() {
     fi
 
     # NODE_ENV
+    node_version=$(node --version)
     if [ $NODE_ENV != 'development' ]; then
-        node_env="$_yellow_[${NODE_ENV}]$_off_"
+        node_env="$_iblack_[$node_version $_yellow_${NODE_ENV}$_iblack_]$_off_"
     else
-        node_env="$_iblack_[${NODE_ENV}]$_off_"
+        node_env="$_iblack_[$node_version ${NODE_ENV}]$_off_"
     fi
 
     # git
