@@ -1,4 +1,5 @@
 # Customize BASH PS1 prompt to show current GIT repository and branch.
+# Original from http://mediadoneright.com/content/ultimate-git-ps1-bash-prompt
 
 # Regular Colors
 _black_='\e[0;30m'
@@ -110,57 +111,64 @@ _short_git_status() {
     echo -ne "${status_prompt}"
 }
 
-_get_prompt() {
-    # Get status early, before the first command.
-    status=$?
-
-    # Date
-    hour="${_iblack_}$(date +"%H:%M:%S")${_off_}"
-
-    # Path
-    path=$(dirs +0)
-
-    # Error
-    error_dot=
-    if [ $status -eq 130 ]; then
-        # ^C
-        error_dot="${_iyellow_} 🗙 ${_off_}"
-    elif [ $status -ne 0 ]; then
-        error_dot="${_ired_} ⬤ ${_off_}"
+_git_prompt() {
+    git status | grep "nothing to commit" > /dev/null 2>&1
+    is_repo_clean=$?
+    if [ "$is_repo_clean" -eq 0 ]; then
+        repo_state="${_green_}$(__git_ps1 "(%s)")${_off_}"
+    else
+        repo_state="${_ired_}$(__git_ps1 "{%s}")${_off_}"
     fi
 
-    # NODE_ENV
+    status_prompt=$(echo -n "$(_short_git_status)")
+    repo_prompt="${repo_state} ${status_prompt}"
+
+    echo -ne "${repo_prompt}"
+}
+
+_node_prompt() {
     node_version=$(node --version)
     if [ $NODE_ENV != 'development' ]; then
         node_env="${_iblack_}[${node_version} ${_yellow_}${NODE_ENV}${_iblack_}]${_off_}"
     else
         node_env="${_iblack_}[${node_version} ${NODE_ENV}]${_off_}"
     fi
+    echo -ne "${node_env}"
+}
 
-    # git
+_get_prompt() {
+    # Get status early, before the first command.
+    status=$?
+
     git branch &>/dev/null
-    in_repo=$?
-    repo_prompt=
-    if [ "$in_repo" -eq 0 ]; then
+    in_git_repo=$?
 
-        git status | grep "nothing to commit" > /dev/null 2>&1
-        is_repo_clean=$?
-        if [ "$is_repo_clean" -eq 0 ]; then
-            repo_state="${_green_}$(__git_ps1 "(%s)")${_off_}"
-        else
-            repo_state="${_ired_}$(__git_ps1 "{%s}")${_off_}"
-        fi
+    # Date
+    hour="${_iblack_}$(date +"%H:%M:%S")${_off_}"
 
-        status_prompt=$(echo -n "$(_short_git_status)")
+    # Path
+    path="$(dirs +0)"
 
-        repo_prompt="${repo_state} ${status_prompt}"
+    # Error
+    error_dot=
+    if [ $status -eq 130 ]; then
+        # ^C
+        error_dot=" ${_iyellow_}🗙${_off_} "
+    elif [ $status -ne 0 ]; then
+        error_dot=" ${_ired_}⬤${_off_} "
+    fi
+
+    node_prompt=$(echo -n "$(_node_prompt)")
+
+    if [ "$in_git_repo" -eq 0 ]; then
+        git_prompt=$(echo -n "$(_git_prompt)")
         path_prompt="${_byellow_}${path}${_off_}"
     else
+        git_prompt=''
         path_prompt="${_yellow_}${path}${_off_}"
     fi
 
-    # :)
-    echo -e "${hour} ${repo_prompt}${path_prompt} ${node_env}${error_dot}\n\$ "
+    echo -e "${hour} ${git_prompt}${path_prompt} ${node_prompt}${error_dot}\n\$ "
 }
 
 export PS1='$(_get_prompt)'
