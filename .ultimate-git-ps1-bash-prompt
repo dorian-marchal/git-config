@@ -165,9 +165,9 @@ _get_prompt() {
     error_dot=
     if [ $status -eq 130 ]; then
         # ^C
-        error_dot=" ${_iyellow_}🗙${_off_} "
+        error_dot=" ${_iyellow_}✕${_off_} "
     elif [ $status -ne 0 ]; then
-        error_dot=" ${_ired_}⬤${_off_} "
+        error_dot=" ${_ired_}⏺${_off_} "
     fi
 
     node_prompt=$(echo -n "$(_node_prompt)")
