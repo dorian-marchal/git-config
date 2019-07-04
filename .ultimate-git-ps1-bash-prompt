@@ -115,7 +115,7 @@ _get_prompt() {
     status=$?
 
     # Date
-    hour="$_iblack_$(date +"%H:%M:%S")$_off_"
+    hour="${_iblack_}$(date +"%H:%M:%S")${_off_}"
 
     # Path
     path=$(dirs +0)
@@ -124,17 +124,17 @@ _get_prompt() {
     error_dot=
     if [ $status -eq 130 ]; then
         # ^C
-        error_dot="$_iyellow_ 🗙 $_off_"
+        error_dot="${_iyellow_} 🗙 ${_off_}"
     elif [ $status -ne 0 ]; then
-        error_dot="$_ired_ ⬤ $_off_"
+        error_dot="${_ired_} ⬤ ${_off_}"
     fi
 
     # NODE_ENV
     node_version=$(node --version)
     if [ $NODE_ENV != 'development' ]; then
-        node_env="$_iblack_[$node_version $_yellow_${NODE_ENV}$_iblack_]$_off_"
+        node_env="${_iblack_}[${node_version} ${_yellow_}${NODE_ENV}${_iblack_}]${_off_}"
     else
-        node_env="$_iblack_[$node_version ${NODE_ENV}]$_off_"
+        node_env="${_iblack_}[${node_version} ${NODE_ENV}]${_off_}"
     fi
 
     # git
@@ -146,21 +146,21 @@ _get_prompt() {
         git status | grep "nothing to commit" > /dev/null 2>&1
         is_repo_clean=$?
         if [ "$is_repo_clean" -eq 0 ]; then
-            repo_state="$_green_$(__git_ps1 "(%s)")$_off_"
+            repo_state="${_green_}$(__git_ps1 "(%s)")${_off_}"
         else
-            repo_state="$_ired_$(__git_ps1 "{%s}")$_off_"
+            repo_state="${_ired_}$(__git_ps1 "{%s}")${_off_}"
         fi
 
         status_prompt=$(echo -n "$(_short_git_status)")
 
         repo_prompt="${repo_state} ${status_prompt}"
-        path_prompt="$_byellow_$path$_off_"
+        path_prompt="${_byellow_}${path}${_off_}"
     else
-        path_prompt="$_yellow_$path$_off_"
+        path_prompt="${_yellow_}${path}${_off_}"
     fi
 
     # :)
-    echo -e "$hour $repo_prompt$path_prompt $node_env$error_dot\n\$ "
+    echo -e "${hour} ${repo_prompt}${path_prompt} ${node_env}${error_dot}\n\$ "
 }
 
 export PS1='$(_get_prompt)'
