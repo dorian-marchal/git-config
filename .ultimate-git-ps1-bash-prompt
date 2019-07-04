@@ -79,15 +79,30 @@ _off_='\e[0m'
 
 
 _git_prompt() {
-    git_status=$(git status --untracked-files=all --porcelain)
-    is_repo_dirty="$git_status"
+    git_status=$(git status --branch --untracked-files=all --porcelain)
+    is_repo_dirty="$(printf -- "$git_status" | grep -v '##')"
+
+    is_ahead=$(printf -- "$git_status" | grep ahead)
+    is_behind=$(printf -- "$git_status" | grep behind)
+
+    if [ -n "$is_repo_dirty" ]; then
+        state_color="${_ired_}"
+        state_template='{%s}'
+    else
+        state_color+="${_green_}"
+        state_template='(%s)'
+    fi
 
     # See https://stackoverflow.com/a/55082075/3877971 for __git_ps1
-    if [ -n "$is_repo_dirty" ]; then
-        repo_state="${_ired_}$(__git_ps1 "{%s}")${_off_}"
-    else
-        repo_state="${_green_}$(__git_ps1 "(%s)")${_off_}"
+    repo_state="$state_color"
+    if [ -n "$is_behind" ]; then
+        repo_state+="↙ "
     fi
+    repo_state+="$(__git_ps1 "${state_template}")"
+    if [ -n "$is_ahead" ]; then
+        repo_state+="↗ "
+    fi
+    repo_state+="${_off_}"
 
     status_flags=$(printf -- "$git_status" | sed 's/^\(..\).*$/\1/')
     staged_count=$(printf -- "$status_flags" | grep -c '^[AMD].' | sed s/0//)
