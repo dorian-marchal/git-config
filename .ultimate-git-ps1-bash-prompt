@@ -73,6 +73,43 @@ _on_iwhite_='\e[0;107m'
 # Reset
 _off_='\e[0m'
 
+_short_git_status() {
+    status_flags=$(git status --porcelain | sed 's/^\(..\).*$/\1/')
+    staged_count=$(printf -- "$status_flags" | grep -c '^[AMD].' | sed s/0//)
+    unstaged_count=$(printf -- "$status_flags" | grep -c '^.[AMD]' | sed s/0//)
+    untracked_count=$(printf -- "$status_flags" | grep -c '??' | sed s/0//)
+    is_dirty="${staged_count}${unstaged_count}${untracked_count}"
+
+    black_dot="${_iblack_}·${_off_}"
+    status_prompt=''
+    # Staged.
+    if [ -n "${staged_count}" ]; then
+        status_prompt+="${_igreen_}${staged_count}${_off_}"
+    fi
+    # "·"
+    if [ -n "${is_dirty}" ]; then
+        status_prompt+="${black_dot}"
+    fi
+    # Unstaged.
+    if [ -n "${unstaged_count}" ]; then
+        status_prompt+="${_yellow_}${unstaged_count}${_off_}"
+    fi
+    # "·"
+    if [ -n "${is_dirty}" ]; then
+        status_prompt+="${black_dot}"
+    fi
+    # Untracked.
+    if [ -n "${untracked_count}" ]; then
+        status_prompt+="${_iblue_}${untracked_count}${_off_}"
+    fi
+    # " "
+    if [ -n "${is_dirty}" ]; then
+        status_prompt+=" "
+    fi
+
+    echo -ne "${status_prompt}"
+}
+
 _get_prompt() {
     # Get status early, before the first command.
     status=$?
@@ -114,7 +151,9 @@ _get_prompt() {
             repo_state="$_ired_$(__git_ps1 "{%s}")$_off_"
         fi
 
-        repo_prompt="$repo_state "
+        status_prompt=$(echo -n "$(_short_git_status)")
+
+        repo_prompt="${repo_state} ${status_prompt}"
         path_prompt="$_byellow_$path$_off_"
     else
         path_prompt="$_yellow_$path$_off_"
