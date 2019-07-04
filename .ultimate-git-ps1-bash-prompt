@@ -117,7 +117,14 @@ _git_prompt() {
         status_prompt+=" "
     fi
 
-    repo_prompt="${repo_state} ${status_prompt}"
+    # Specific to my workflow.
+    # Adds an indicator if the latest commit is a temporary one (ctmp alias).
+    latest_commit_msg="$(git log --oneline --format=%B -n 1 HEAD | head -n 1)"
+    if [ "$latest_commit_msg" = "temporary-commit" ]; then
+        tmp_commit_indicator="${_bipurple_} ★${_off_}"
+    fi
+
+    repo_prompt="${repo_state}${tmp_commit_indicator} ${status_prompt}"
 
     echo -ne "${repo_prompt}"
 }
