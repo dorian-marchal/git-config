@@ -200,8 +200,8 @@
         rs = reset --soft
         rh = reset --hard
 
-        s = status
-        ss = status -s
+        s = status --untracked-files=all
+        ss = status --untracked-files=all -s
 
         st  = stash
         stl = stash list

@@ -75,7 +75,7 @@ _on_iwhite_='\e[0;107m'
 _off_='\e[0m'
 
 _short_git_status() {
-    status_flags=$(git status --porcelain | sed 's/^\(..\).*$/\1/')
+    status_flags=$(git status --untracked-files=all --porcelain | sed 's/^\(..\).*$/\1/')
     staged_count=$(printf -- "$status_flags" | grep -c '^[AMD].' | sed s/0//)
     unstaged_count=$(printf -- "$status_flags" | grep -c '^.[AMD]' | sed s/0//)
     untracked_count=$(printf -- "$status_flags" | grep -c '??' | sed s/0//)
