@@ -66,7 +66,7 @@ _biwhite_='\e[1;97m'
 
 # High Intensty backgrounds
 _on_iblack_='\e[0;100m'
-_on_ired_='\e[0;101m'
+_on_ired_='\e[0;30;101m'
 _on_igreen_='\e[0;102m'
 _on_iyellow_='\e[0;103m'
 _on_iblue_='\e[0;104m'
@@ -82,6 +82,7 @@ _git_prompt() {
     git_status=$(git status --untracked-files=all --porcelain)
     is_repo_dirty="$git_status"
 
+    # See https://stackoverflow.com/a/55082075/3877971 for __git_ps1
     if [ -n "$is_repo_dirty" ]; then
         repo_state="${_ired_}$(__git_ps1 "{%s}")${_off_}"
     else
@@ -92,6 +93,7 @@ _git_prompt() {
     staged_count=$(printf -- "$status_flags" | grep -c '^[AMD].' | sed s/0//)
     unstaged_count=$(printf -- "$status_flags" | grep -c '^.[AMD]' | sed s/0//)
     untracked_count=$(printf -- "$status_flags" | grep -c '??' | sed s/0//)
+    unmerged_count=$(printf -- "$status_flags" | grep -c 'UU' | sed s/0//)
 
     black_dot="${_iblack_}·${_off_}"
     status_prompt=''
@@ -115,6 +117,10 @@ _git_prompt() {
     if [ -n "${untracked_count}" ]; then
         status_prompt+="${_iblue_}${untracked_count}${_off_}"
     fi
+    # Unmerged.
+    if [ -n "${unmerged_count}" ]; then
+        status_prompt+="${black_dot}${_on_ired_}${unmerged_count}${_off_}"
+    fi
     # " "
     if [ -n "${is_repo_dirty}" ]; then
         status_prompt+=" "
@@ -122,7 +128,7 @@ _git_prompt() {
 
     # Specific to my workflow.
     # Adds an indicator if the latest commit is a temporary one (ctmp alias).
-    latest_commit_msg="$(git log --oneline --format=%B -n 1 HEAD | head -n 1)"
+    latest_commit_msg="$(git log --oneline --format=%B -n 1 HEAD -- 2> /dev/null | head -n 1)"
     if [ "$latest_commit_msg" = "temporary-commit" ]; then
         tmp_commit_indicator="${_ipurple_} ⭑${_off_}"
     fi
