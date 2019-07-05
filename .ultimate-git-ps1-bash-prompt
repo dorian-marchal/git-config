@@ -104,11 +104,12 @@ _git_prompt() {
     fi
     repo_state+="${_off_}"
 
+    unmerged_pattern='U.\|.U\|.A'
     status_flags=$(printf -- "$git_status" | sed 's/^\(..\).*$/\1/')
-    staged_count=$(printf -- "$status_flags" | grep -c '^[AMD].' | sed s/0//)
-    unstaged_count=$(printf -- "$status_flags" | grep -c '^.[AMD]' | sed s/0//)
+    staged_count=$(printf -- "$status_flags" | grep -v "$unmerged_pattern" | grep -c '^[AMD].' | sed s/0//)
+    unstaged_count=$(printf -- "$status_flags" | grep -v "$unmerged_pattern" | grep -c '^.[AMD]' | sed s/0//)
     untracked_count=$(printf -- "$status_flags" | grep -c '??' | sed s/0//)
-    unmerged_count=$(printf -- "$status_flags" | grep -c 'UU' | sed s/0//)
+    unmerged_count=$(printf -- "$status_flags" | grep -c "$unmerged_pattern" | sed s/0//)
 
     black_dot="${_iblack_}·${_off_}"
     status_prompt=''
