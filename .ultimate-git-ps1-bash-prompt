@@ -96,11 +96,11 @@ _git_prompt() {
     # See https://stackoverflow.com/a/55082075/3877971 for __git_ps1
     repo_state="$state_color"
     if [ -n "$is_behind" ]; then
-        repo_state+="↙ "
+        repo_state+="⇣ "
     fi
     repo_state+="$(__git_ps1 "${state_template}")"
     if [ -n "$is_ahead" ]; then
-        repo_state+="↗ "
+        repo_state+="⇡ "
     fi
     repo_state+="${_off_}"
 
