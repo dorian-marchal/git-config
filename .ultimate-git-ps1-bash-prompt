@@ -1,8 +1,14 @@
 # Customize BASH PS1 prompt to show current GIT repository and branch.
 # Original from http://mediadoneright.com/content/ultimate-git-ps1-bash-prompt
 
-# List colors with:
-# for x in {0..8}; do for i in {30..37}; do for a in {40..47}; do echo -ne "\e[$x;$i;$a""m\\\e[$x;$i;$a""m\e[0;37;40m "; done; echo; done; done; echo ""
+# This prompt depends on `romkatv/gitstatus` to improve its performances.
+# (it will work without it but will be slower).
+# @see https://github.com/romkatv/gitstatus
+#
+# To enable `romkatv/gitstatus`, download it and add this line to your ~.bashrc:
+#   export _GITSTATUS_PLUGIN_PATH=/path/to/gitstatus.plugin.sh
+
+source "$_GITSTATUS_PLUGIN_PATH" || export _DISABLE_GITSTATUS=true
 
 # Regular Colors
 _black_='\e[0;30m'
@@ -77,126 +83,162 @@ _on_iwhite_='\e[0;107m'
 # Reset
 _off_='\e[0m'
 
+_on_debug() {
+    if [ -n "$_PROMPT_DEBUG" ]; then
+        >&2 $@
+    fi
+}
 
-_git_prompt() {
-    git_status=$(git status --branch --untracked-files=all --porcelain)
-    is_repo_dirty="$(printf -- "$git_status" | grep -v '##')"
+_init_git_prompt() {
 
-    is_ahead=$(printf -- "$git_status" | grep ahead)
-    is_behind=$(printf -- "$git_status" | grep behind)
+    # Use `romkatv/gitstatus` when available.
+    if [[ -z "$_DISABLE_GITSTATUS" ]] && gitstatus_query && [[ "$VCS_STATUS_RESULT" == ok-sync ]]; then
+        _on_debug echo 'Using `romkatv/gitstatus`! :)'
 
-    if [ -n "$is_repo_dirty" ]; then
-        state_color="${_ired_}"
-        state_template='{%s}'
+        local ahead_count="$VCS_STATUS_COMMITS_AHEAD"
+        local behind_count="$VCS_STATUS_COMMITS_BEHIND"
+        local staged_count="$VCS_STATUS_NUM_STAGED"
+        local unstaged_count="$VCS_STATUS_NUM_UNSTAGED"
+        local untracked_count="$VCS_STATUS_NUM_UNTRACKED"
+        # Not supported, yet, see https://github.com/romkatv/gitstatus/issues/40
+        local unmerged_count=0
+
+    # Fallback on slower "git status".
     else
-        state_color+="${_green_}"
-        state_template='(%s)'
+        _on_debug echo 'Fallbacking on git status. :('
+
+        local git_status=$(git status --branch --untracked-files=all --porcelain)
+        local unmerged_pattern='U.\|.U\|.A'
+
+        local ahead_count="$(printf -- "$git_status" | grep -o '\[ahead [[:digit:]]*' | grep -o '[[:digit:]]*')"
+        local behind_count="$(printf -- "$git_status" | grep -o 'behind [[:digit:]]*' | grep -o '[[:digit:]]*')"
+        local status_flags="$(printf -- "$git_status" | sed 's/^\(..\).*$/\1/')"
+        local staged_count="$(printf -- "$status_flags" | grep -v "$unmerged_pattern" | grep -c '^[AMD].')"
+        local unstaged_count="$(printf -- "$status_flags" | grep -v "$unmerged_pattern" | grep -c '^.[AMD]')"
+        local untracked_count="$(printf -- "$status_flags" | grep -c '??')"
+        local unmerged_count="$(printf -- "$status_flags" | grep -c "$unmerged_pattern")"
+    fi
+    local dirty_files_count="$(($staged_count + $unstaged_count + $untracked_count))"
+
+    if [ "$dirty_files_count" -ne 0 ]; then
+        local state_color="${_ired_}"
+        local state_template='{%s}'
+    else
+        local state_color+="${_green_}"
+        local state_template='(%s)'
     fi
 
-    # See https://stackoverflow.com/a/55082075/3877971 for __git_ps1
-    repo_state="$state_color"
-    if [ -n "$is_behind" ]; then
+    local repo_state="$state_color"
+    if [ "$behind_count" -ne 0 ]; then
         repo_state+="⇣ "
     fi
+    # See https://stackoverflow.com/a/55082075/3877971 for __git_ps1
     repo_state+="$(__git_ps1 "${state_template}")"
-    if [ -n "$is_ahead" ]; then
+    if [ "$ahead_count" -ne 0 ]; then
         repo_state+="⇡ "
     fi
     repo_state+="${_off_}"
 
-    unmerged_pattern='U.\|.U\|.A'
-    status_flags=$(printf -- "$git_status" | sed 's/^\(..\).*$/\1/')
-    staged_count=$(printf -- "$status_flags" | grep -v "$unmerged_pattern" | grep -c '^[AMD].' | sed s/0//)
-    unstaged_count=$(printf -- "$status_flags" | grep -v "$unmerged_pattern" | grep -c '^.[AMD]' | sed s/0//)
-    untracked_count=$(printf -- "$status_flags" | grep -c '??' | sed s/0//)
-    unmerged_count=$(printf -- "$status_flags" | grep -c "$unmerged_pattern" | sed s/0//)
-
-    black_dot="${_iblack_}·${_off_}"
-    status_prompt=''
+    local black_dot="${_iblack_}·${_off_}"
+    local status_prompt=''
     # Staged.
-    if [ -n "${staged_count}" ]; then
+    if [ "${staged_count}" -ne 0 ]; then
         status_prompt+="${_igreen_}${staged_count}${_off_}"
     fi
     # "·"
-    if [ -n "${is_repo_dirty}" ]; then
+    if [ "${dirty_files_count}" -ne 0 ]; then
         status_prompt+="${black_dot}"
     fi
     # Unstaged.
-    if [ -n "${unstaged_count}" ]; then
+    if [ "${unstaged_count}" -ne 0 ]; then
         status_prompt+="${_yellow_}${unstaged_count}${_off_}"
     fi
     # "·"
-    if [ -n "${is_repo_dirty}" ]; then
+    if [ "${dirty_files_count}" -ne 0 ]; then
         status_prompt+="${black_dot}"
     fi
     # Untracked.
-    if [ -n "${untracked_count}" ]; then
+    if [ "${untracked_count}" -ne 0 ]; then
         status_prompt+="${_iblue_}${untracked_count}${_off_}"
     fi
     # Unmerged.
-    if [ -n "${unmerged_count}" ]; then
+    if [ "${unmerged_count}" -ne 0 ]; then
         status_prompt+="${black_dot}${_on_ired_}${unmerged_count}${_off_}"
     fi
     # " "
-    if [ -n "${is_repo_dirty}" ]; then
+    if [ "${dirty_files_count}" -ne 0 ]; then
         status_prompt+=" "
     fi
 
     # Specific to my workflow.
     # Adds an indicator if the latest commit is a temporary one (ctmp alias).
-    latest_commit_msg="$(git log --oneline --format=%B -n 1 HEAD -- 2> /dev/null | head -n 1)"
+    local latest_commit_msg="$(git log --oneline --format=%B -n 1 HEAD -- 2> /dev/null | head -n 1)"
     if [ "$latest_commit_msg" = "temporary-commit" ]; then
-        tmp_commit_indicator="${_ipurple_} ⭑${_off_}"
+        local tmp_commit_indicator="${_ipurple_} ⭑${_off_}"
     fi
 
-    repo_prompt="${repo_state}${tmp_commit_indicator} ${status_prompt}"
-
-    echo -ne "${repo_prompt}"
+    git_prompt="${repo_state}${tmp_commit_indicator} ${status_prompt}"
 }
 
-_node_prompt() {
-    node_version=$(node --version)
-    if [ $NODE_ENV != 'development' ]; then
-        node_env="${_iblack_}[${node_version} ${_yellow_}${NODE_ENV}${_iblack_}]${_off_}"
-    else
-        node_env="${_iblack_}[${node_version} ${NODE_ENV}]${_off_}"
+_init_node_prompt() {
+    command -v node >/dev/null
+    local is_node_available=$?
+
+    if [ $is_node_available -eq 0 ]; then
+        local node_version="$(node --version)"
+        node_prompt="${_iblack_}[${node_version}, "
+
+        if [ $NODE_ENV != 'development' ]; then
+            node_prompt+="${_yellow_}${NODE_ENV}${_iblack_}"
+        else
+            node_prompt+="${NODE_ENV}"
+        fi
+        node_prompt+="]${_off_} "
     fi
-    echo -ne "${node_env}"
 }
 
 _get_prompt() {
-    # Get status early, before the first command.
-    status=$?
-
     git rev-parse --is-inside-work-tree >/dev/null 2>&1
-    in_git_repo=$?
+    local in_git_repo=$?
 
     # Date
-    hour="${_iblack_}$(date +"%H:%M:%S")${_off_}"
+    local hour="${_iblack_}$(date +"%H:%M:%S")${_off_}"
 
     # Path
-    path="$(dirs +0)"
+    local path="$(dirs +0)"
 
-    # Error
-    error_dot=
+    # Status
     if [ $status -eq 130 ]; then
         # ^C
-        error_dot=" ${_iyellow_}✕${_off_} "
+        local status_indicator="${_iyellow_}✕${_off_}"
     elif [ $status -ne 0 ]; then
-        error_dot=" ${_ired_}⏺${_off_} "
+        local status_indicator="${_ired_}⏺${_off_}"
     fi
 
-    node_prompt=$(echo -n "$(_node_prompt)")
+    _init_node_prompt
 
     if [ "$in_git_repo" -eq 0 ]; then
-        git_prompt=$(echo -n "$(_git_prompt)")
-        path_prompt="${_iyellow_}${path}${_off_}"
+        _init_git_prompt
+        local path_prompt="${_iyellow_}${path}${_off_}"
     else
-        git_prompt=''
-        path_prompt="${_yellow_}${path}${_off_}"
+        local path_prompt="${_yellow_}${path}${_off_}"
     fi
 
-    echo -e "${hour} ${git_prompt}${path_prompt} ${node_prompt}${error_dot}\n\$ "
+    echo -e "${hour} ${git_prompt}${path_prompt} ${node_prompt}${status_indicator}\n\$ "
 }
 
-export PS1='$(_get_prompt)'
+# Restart the gitstatus daemon.
+# See https://github.com/romkatv/gitstatus/blob/9bbf75b0a89c8e78b80a29e31e010ce45a791e8c/gitstatus.plugin.sh#L23-L38
+gitstatus_stop && gitstatus_start -s -1 -u -1 -d -1
+
+_debuggable_prompt() {
+    # Get status early, before the first command.
+    local status=$?
+    if [ -n "$_PROMPT_DEBUG" ]; then
+        echo -n 'Prompt time: '
+        (time _get_prompt) 2>&1 > /dev/null | grep real | sed 's/^.*m\(.*\)$/\1/'
+    fi
+    _get_prompt
+}
+
+export PS1='$(_debuggable_prompt)'
