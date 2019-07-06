@@ -50,7 +50,7 @@ _on_purple_='\e[45m'
 _on_cyan_='\e[46m'
 _on_white_='\e[47m'
 
-# High Intensty
+# High Intensity
 _iblack_='\e[0;90m'
 _ired_='\e[0;91m'
 _igreen_='\e[0;92m'
@@ -60,7 +60,7 @@ _ipurple_='\e[0;95m'
 _icyan_='\e[0;96m'
 _iwhite_='\e[0;97m'
 
-# Bold High Intensty
+# Bold High Intensity
 _biblack_='\e[1;90m'
 _bired_='\e[1;91m'
 _bigreen_='\e[1;92m'
@@ -70,7 +70,7 @@ _bipurple_='\e[1;95m'
 _bicyan_='\e[1;96m'
 _biwhite_='\e[1;97m'
 
-# High Intensty backgrounds
+# High Intensity backgrounds
 _on_iblack_='\e[0;100m'
 _on_ired_='\e[0;30;101m'
 _on_igreen_='\e[0;102m'
@@ -100,8 +100,7 @@ _init_git_prompt() {
         local staged_count="$VCS_STATUS_NUM_STAGED"
         local unstaged_count="$VCS_STATUS_NUM_UNSTAGED"
         local untracked_count="$VCS_STATUS_NUM_UNTRACKED"
-        # Not supported, yet, see https://github.com/romkatv/gitstatus/issues/40
-        local unmerged_count=0
+        local unmerged_count="$VCS_STATUS_NUM_CONFLICTED"
 
     # Fallback on slower "git status".
     else
@@ -111,14 +110,17 @@ _init_git_prompt() {
         local unmerged_pattern='U.\|.U\|.A'
 
         local ahead_count="$(printf -- "$git_status" | grep -o '\[ahead [[:digit:]]*' | grep -o '[[:digit:]]*')"
+        ahead_count="${ahead_count:-0}"
         local behind_count="$(printf -- "$git_status" | grep -o 'behind [[:digit:]]*' | grep -o '[[:digit:]]*')"
+        behind_count="${behind_count:-0}"
         local status_flags="$(printf -- "$git_status" | sed 's/^\(..\).*$/\1/')"
         local staged_count="$(printf -- "$status_flags" | grep -v "$unmerged_pattern" | grep -c '^[AMD].')"
         local unstaged_count="$(printf -- "$status_flags" | grep -v "$unmerged_pattern" | grep -c '^.[AMD]')"
         local untracked_count="$(printf -- "$status_flags" | grep -c '??')"
         local unmerged_count="$(printf -- "$status_flags" | grep -c "$unmerged_pattern")"
     fi
-    local dirty_files_count="$(($staged_count + $unstaged_count + $untracked_count))"
+    _on_debug echo "Git status: $behind_count⇣ $ahead_count⇡ $staged_count+ $unstaged_count! $untracked_count? ${unmerged_count}x"
+    local dirty_files_count="$(($staged_count + $unstaged_count + $untracked_count + $unmerged_count))"
 
     if [ "$dirty_files_count" -ne 0 ]; then
         local state_color="${_ired_}"
@@ -229,11 +231,12 @@ _get_prompt() {
 
 # Restart the gitstatus daemon.
 # See https://github.com/romkatv/gitstatus/blob/9bbf75b0a89c8e78b80a29e31e010ce45a791e8c/gitstatus.plugin.sh#L23-L38
-gitstatus_stop && gitstatus_start -s -1 -u -1 -d -1
+gitstatus_stop && gitstatus_start -s -1 -u -1 -d -1 -c -1
 
 _debuggable_prompt() {
     # Get status early, before the first command.
     local status=$?
+
     if [ -n "$_PROMPT_DEBUG" ]; then
         echo -n 'Prompt time: '
         (time _get_prompt) 2>&1 > /dev/null | grep real | sed 's/^.*m\(.*\)$/\1/'
