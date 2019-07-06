@@ -210,9 +210,9 @@ _get_prompt() {
     # Status
     if [ $status -eq 130 ]; then
         # ^C
-        local status_indicator="${_iyellow_}✕${_off_}"
+        local status_indicator="${_iyellow_}✕${_off_} "
     elif [ $status -ne 0 ]; then
-        local status_indicator="${_ired_}⏺${_off_}"
+        local status_indicator="${_ired_}⏺${_off_} "
     fi
 
     _init_node_prompt
