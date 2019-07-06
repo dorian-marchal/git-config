@@ -1,23 +1,22 @@
 # Git prompt
 
-Pour faciliter l'utilisation de git en ligne de commande, j'utilise __[Ultimate GIT PS1 bash prompt](http://mediadoneright.com/content/ultimate-git-ps1-bash-prompt)__.
-Ce bash prompt permet de voir sur quelle branche vous êtes et le statut de cette branche.
+Pour faciliter l'utilisation de git en ligne de commande, j'utilise un prompt custom.
+Ce bash prompt permet de voir sur quelle référence (branche, tag, commit) vous êtes et le statut du repo.
 
-Le script permettant de mettre en place ce prompt (à inclure dans votre `.bashrc`) est `.ultimate-git-ps1-bash-prompt`.
+Le script permettant de mettre en place ce prompt (à inclure dans votre `.bashrc`) est `bash-prompt.sh`.
 
 ### Installation
 
-Clonez ce dépôt dans un coin de votre PC :
+Clonez ce dépôt :
 
 ```bash
-cd /tmp && git clone https://github.com/dorian-marchal/git-config
+cd ~ && git clone https://github.com/dorian-marchal/git-config
 ```
 
-Copiez-collez simplement le fichier dans votre home et *sourcez* le dans votre `.bashrc` :
+*Sourcez* le prompt depuis votre `.bashrc` :
 
 ```bash
-cp git-config/.ultimate-git-ps1-bash-prompt ~
-echo ". ~/.ultimate-git-ps1-bash-prompt 2> /dev/null" >> ~/.bashrc
+echo ". ~/git-config/.bash-prompt.sh" >> ~/.bashrc
 ```
 
 Rechargez le bashrc pour appliquer les changements :

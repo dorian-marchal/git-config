@@ -1,6 +1,3 @@
-# Customize BASH PS1 prompt to show current GIT repository and branch.
-# Original from http://mediadoneright.com/content/ultimate-git-ps1-bash-prompt
-
 # This prompt depends on `romkatv/gitstatus` to improve its performances.
 # (it will work without it but will be slower).
 # @see https://github.com/romkatv/gitstatus
