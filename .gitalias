@@ -4,10 +4,10 @@
         ap = add -p
 
         # Liste les alias git
-        alias = !git config -l | grep ^alias.
+        alias = !git config -l | grep ^alias | sed 's/alias\\.\\([^=]*\\)=/\\1 = /'
         # What Is : Voir la description d'un alias
         # Usage : git wi l
-        wi = !"f() { git alias | grep -oP --color=never \"alias\\.$@=\\K(.*)\"; }; f"
+        wi = !"f() { git config -l | grep ^alias | grep -oP --color=never \"alias\\.$@=\\K(.*)\"; }; f"
 
         amend = commit --amend
         ane = commit --amend --no-edit
@@ -140,9 +140,10 @@
         # Affiche les commits du jour pour marchal.dorian
         kt = !"f() { git ka --since=\"$(date --date yesterday +'%Y-%m-%d 00:00:00')\" --author='marchal.dorian'; }; f"
 
-        # no fast forward avec message de commit
-        m = merge --no-ff -e
+        # no fast forward
+        m = merge --no-ff
         mff = merge
+        mc = merge --continue
 
         mt = !"f() { LANG=en_US.UTF-8 git mergetool -y $@; }; f"
 
