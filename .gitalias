@@ -180,7 +180,7 @@
         revert-chmod = !"git diff -p -R | grep -E \"^(diff|(old|new) mode)\" | git apply"
 
         # --keep-empty allows keeping reword commits (see `reword` alias).
-        rb = rebase --keep-empty
+        rb = rebase
         rba = rebase --abort
         rbc = rebase --continue
         rbs = rebase --skip
