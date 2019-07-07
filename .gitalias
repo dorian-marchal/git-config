@@ -59,6 +59,7 @@
         cob = checkout -b
 
         cp = cherry-pick
+        cpa = cherry-pick --abort
         # Cherry pick and unstage
         # Usage : git cpn ref
         cpn = !"f() { git cherry-pick -n "$@" && git reset HEAD --; }; f"
@@ -144,6 +145,7 @@
         m = merge --no-ff
         mff = merge
         mc = merge --continue
+        ma = merge --abort
 
         mt = !"f() { LANG=en_US.UTF-8 git mergetool -y $@; }; f"
 
