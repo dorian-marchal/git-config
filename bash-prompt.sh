@@ -99,6 +99,49 @@ _init_git_prompt() {
         local untracked_count="$VCS_STATUS_NUM_UNTRACKED"
         local unmerged_count="$VCS_STATUS_NUM_CONFLICTED"
 
+        # See https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh to know more.
+        if [ -f "$git_dir/MERGE_HEAD" ]; then
+            local process='|MERGING'
+
+        elif [ -f "$git_dir/REBASE_HEAD" ]; then
+            if [ -d "$git_dir/rebase-apply" ]; then
+                local stopped_sha="$(cat "$git_dir/rebase-apply/original-commit")"
+                local current_step="$(cat "$git_dir/rebase-apply/next")"
+                local last_step="$(cat "$git_dir/rebase-apply/last")"
+                local rebased_branch="$(cat "$git_dir/rebase-apply/head-name" | cut -c 12-)"
+                local new_base="$(cat "$git_dir/rebase-apply/onto")"
+            else
+                if [ -f "$git_dir/rebase-merge/interactive" ]; then
+                    local rebase_option="i-"
+                    local stopped_sha="$(cat "$git_dir/rebase-merge/stopped-sha")"
+                else
+                    local rebase_option="m-"
+                    local stopped_sha="$(cat "$git_dir/rebase-merge/current")"
+                fi
+                local current_step="$(cat "$git_dir/rebase-merge/msgnum")"
+                local last_step="$(cat "$git_dir/rebase-merge/end")"
+                local rebased_branch="$(cat "$git_dir/rebase-merge/head-name" | cut -c 12-)"
+                local new_base="$(cat "$git_dir/rebase-merge/onto")"
+            fi
+            local process="|${rebase_option}REBASING ${rebased_branch} on ${new_base:0:6}, picking ${stopped_sha:0:6} $current_step/$last_step"
+
+        elif [ -f "$git_dir/CHERRY_PICK_HEAD" ]; then
+            local process='|CHERRY-PICKING'
+
+        elif [ -f "$git_dir/BISECT_LOG" ]; then
+            local process='|BISECTING'
+
+        elif [ -f "$git_dir/REVERT_HEAD" ]; then
+            local process='|REVERTING'
+
+        fi
+
+        if [ -n "$VCS_STATUS_TAG" ]; then
+            local zero_width_space='​'
+            local prefixed_tag="# ${VCS_STATUS_TAG}"
+        fi
+        local repo_infos="${VCS_STATUS_LOCAL_BRANCH:-${prefixed_tag:-${VCS_STATUS_COMMIT:0:6}…}}${process}"
+
     # Fallback on slower "git status".
     else
         _on_debug echo 'Fallbacking on git status. :('
@@ -115,28 +158,32 @@ _init_git_prompt() {
         local unstaged_count="$(printf -- "$status_flags" | grep -v "$unmerged_pattern" | grep -c '^.[AMD]')"
         local untracked_count="$(printf -- "$status_flags" | grep -c '??')"
         local unmerged_count="$(printf -- "$status_flags" | grep -c "$unmerged_pattern")"
+
+        # See https://stackoverflow.com/a/55082075/3877971 for __git_ps1
+        local repo_infos="$(__git_ps1 "%s")"
     fi
     _on_debug echo "Git status: $behind_count⇣ $ahead_count⇡ $staged_count+ $unstaged_count! $untracked_count? ${unmerged_count}x"
     local dirty_files_count="$(($staged_count + $unstaged_count + $untracked_count + $unmerged_count))"
 
     if [ "$dirty_files_count" -ne 0 ]; then
-        local state_color="${_ired_}"
-        local state_template='{%s}'
+        local state_prefix="${_ired_}{"
+        local state_suffix="}${_off_}"
     else
-        local state_color+="${_green_}"
-        local state_template='(%s)'
+        local state_prefix="${_green_}("
+        local state_suffix=")${_off_}"
     fi
 
-    local repo_state="$state_color"
+    local repo_state="$state_prefix"
     if [ "$behind_count" -ne 0 ]; then
         repo_state+="⇣ "
     fi
-    # See https://stackoverflow.com/a/55082075/3877971 for __git_ps1
-    repo_state+="$(__git_ps1 "${state_template}")"
+
+    repo_state+="$repo_infos"
+
     if [ "$ahead_count" -ne 0 ]; then
         repo_state+="⇡ "
     fi
-    repo_state+="${_off_}"
+    repo_state+="${state_suffix}"
 
     local black_dot="${_iblack_}·${_off_}"
     local status_prompt=''
@@ -197,8 +244,7 @@ _init_node_prompt() {
 }
 
 _get_prompt() {
-    git rev-parse --is-inside-work-tree >/dev/null 2>&1
-    local in_git_repo=$?
+    local git_dir="$(git rev-parse --git-dir 2>/dev/null)"
 
     # Date
     local hour="${_iblack_}$(date +"%H:%M:%S")${_off_}"
@@ -216,7 +262,7 @@ _get_prompt() {
 
     _init_node_prompt
 
-    if [ "$in_git_repo" -eq 0 ]; then
+    if [ -n "$git_dir" ]; then
         _init_git_prompt
         local path_prompt="${_iyellow_}${path}${_off_}"
     else
