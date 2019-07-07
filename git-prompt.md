@@ -10,13 +10,14 @@ Ce prompt doit être sourcé dans le `~/.bashrc` et se trouve dans [`bash-prompt
 Clonez ce dépôt :
 
 ```bash
-cd ~ && git clone https://github.com/dorian-marchal/git-config
+# -- recursive est nécessaire pour clôner les dépendances du prompt.
+cd ~ && git clone --recursive https://github.com/dorian-marchal/git-config
 ```
 
 Sourcez le prompt depuis votre `.bashrc` :
 
 ```bash
-echo ". ~/git-config/.bash-prompt.sh" >> ~/.bashrc
+echo ". ~/git-config/bash-prompt.sh" >> ~/.bashrc
 ```
 
 Rechargez le bashrc pour appliquer les changements :

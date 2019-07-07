@@ -1,11 +1,23 @@
-# This prompt depends on `romkatv/gitstatus` to improve its performances.
-# (it will work without it but will be slower).
-# @see https://github.com/romkatv/gitstatus
+# This file is part of MyBashPrompt.
 #
-# To enable `romkatv/gitstatus`, download it and add this line to your ~.bashrc:
-#   export _GITSTATUS_PLUGIN_PATH=/path/to/gitstatus.plugin.sh
+# MyBashPrompt is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# MyBashPrompt is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with MyBashPrompt. If not, see <https://www.gnu.org/licenses/>.
 
-source "$_GITSTATUS_PLUGIN_PATH" || export _DISABLE_GITSTATUS=true
+# This prompt depends on `romkatv/gitstatus` to improve its performances.
+# (it can work without it but will be slower).
+# @see https://github.com/romkatv/gitstatus
+
+source "$(dirname "$BASH_SOURCE")/gitstatus/gitstatus.plugin.sh" || export _DISABLE_GITSTATUS=true
 
 # Regular Colors
 _black_='\e[0;30m'
@@ -274,7 +286,9 @@ _get_prompt() {
 
 # Restart the gitstatus daemon.
 # See https://github.com/romkatv/gitstatus/blob/9bbf75b0a89c8e78b80a29e31e010ce45a791e8c/gitstatus.plugin.sh#L23-L38
-gitstatus_stop && gitstatus_start -s -1 -u -1 -d -1 -c -1
+if command -v gitstatus_stop >/dev/null; then
+    gitstatus_stop && gitstatus_start -s -1 -u -1 -d -1 -c -1
+fi
 
 _debuggable_prompt() {
     # Get status early, before the first command.
