@@ -178,24 +178,24 @@ _init_git_prompt() {
     local dirty_files_count="$(($staged_count + $unstaged_count + $untracked_count + $unmerged_count))"
 
     if [ "$dirty_files_count" -ne 0 ]; then
-        local state_prefix="${_ired_}{"
-        local state_suffix="}${_off_}"
+        local state_color="${_ired_}"
+        local state_prefix='{'
+        local state_suffix='}'
     else
-        local state_prefix="${_green_}("
-        local state_suffix=")${_off_}"
+        local state_color="${_green_}"
+        local state_prefix='('
+        local state_suffix=')'
     fi
 
-    local repo_state="$state_prefix"
     if [ "$behind_count" -ne 0 ]; then
-        repo_state+="⇣ "
+        local behind_marker="⇣ "
     fi
-
-    repo_state+="$repo_infos"
 
     if [ "$ahead_count" -ne 0 ]; then
-        repo_state+="⇡ "
+        local ahead_marker="⇡ "
     fi
-    repo_state+="${state_suffix}"
+
+    local repo_state="${state_color}${behind_marker}${state_prefix}${repo_infos}${state_suffix}${ahead_marker}${_off_}"
 
     local black_dot="${_iblack_}·${_off_}"
     local status_prompt=''
