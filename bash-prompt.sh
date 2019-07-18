@@ -112,6 +112,11 @@ _init_git_prompt() {
         local unmerged_count="$VCS_STATUS_NUM_CONFLICTED"
 
         # See https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh to know more.
+
+        if [[ "$git_dir" == *"/.git/modules"* ]]; then
+            local submodule_indicator='submodule @ '
+        fi
+
         if [ -f "$git_dir/MERGE_HEAD" ]; then
             local process='|MERGING'
 
@@ -145,14 +150,13 @@ _init_git_prompt() {
 
         elif [ -f "$git_dir/REVERT_HEAD" ]; then
             local process='|REVERTING'
-
         fi
 
         if [ -n "$VCS_STATUS_TAG" ]; then
             local zero_width_space='​'
             local prefixed_tag="# ${VCS_STATUS_TAG}"
         fi
-        local repo_infos="${VCS_STATUS_LOCAL_BRANCH:-${prefixed_tag:-${VCS_STATUS_COMMIT:0:6}…}}${process}"
+        local repo_infos="${submodule_indicator}${VCS_STATUS_LOCAL_BRANCH:-${prefixed_tag:-${VCS_STATUS_COMMIT:0:6}…}}${process}"
 
     # Fallback on slower "git status".
     else
