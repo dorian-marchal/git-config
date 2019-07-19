@@ -163,7 +163,7 @@ _init_git_prompt() {
         _on_debug echo 'Fallbacking on git status. :('
 
         local git_status=$(git status --branch --untracked-files=all --porcelain)
-        local unmerged_pattern='U.\|.U\|.A'
+        local unmerged_pattern='U.\|.U\|DD|AA'
 
         local ahead_count="$(printf -- "$git_status" | grep -o '\[ahead [[:digit:]]*' | grep -o '[[:digit:]]*')"
         ahead_count="${ahead_count:-0}"
