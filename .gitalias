@@ -2,6 +2,7 @@
         a = add -A
         ai = add -i
         ap = add -p
+        aN = add -N
 
         # Liste les alias git
         alias = !git config -l | grep ^alias | sed 's/alias\\.\\([^=]*\\)=/\\1 = /'
