@@ -228,5 +228,13 @@
         # Undo a commit and unstage all files.
         unca = !echo  '/!\\\\ NOTHING DONE. Use git reset HEAD^ -- to undo a commit.'
 
+        # Liste numérotée des fichiers en conflit.
+        uh = !"f() { git status --porcelain | grep 'U.\\|.U\\|DD|AA' | sed 's/^\\w\\+ \\+//g' | head -n ${1:-10} | nl -v0; }; f"
+        # Permet d'xclip un des fichiers listés avec `git uh`.
+        # Usage : git p-clipuh 2
+        p-clipuh = !"f() { git uh $(($1+1)) | grep -oP --color=NEVER \"^\\s*$1\\s+\\K([^\\s]+)\" | xargs echo -n | xclip -selection clipboard; }; f"
+        # `git uh` suivi d'un `git p-clipuh`.
+        uhc = !"f() { git uh $1 && echo '\nEnter index of file to xclip: ' && read file_index && git p-clipuh $file_index; }; f"
+
         # Nombre de commits par contributeur
         who = shortlog -sne
