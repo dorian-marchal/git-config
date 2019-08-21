@@ -291,7 +291,7 @@ _get_prompt() {
 # Restart the gitstatus daemon.
 # See https://github.com/romkatv/gitstatus/blob/9bbf75b0a89c8e78b80a29e31e010ce45a791e8c/gitstatus.plugin.sh#L23-L38
 if command -v gitstatus_stop >/dev/null; then
-    gitstatus_stop && gitstatus_start -s -1 -u -1 -d -1 -c -1
+    gitstatus_stop && gitstatus_start -s -1 -u -1 -d -1 -c -1 -e
 fi
 
 _debuggable_prompt() {
