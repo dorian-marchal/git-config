@@ -118,8 +118,14 @@
         dts = !git diff --stat --color $(git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD))
         # unmerged paths
         u = diff --name-only --diff-filter=U
-        # Diff unmerged paths from HEAD.
-        dhu = !git diff HEAD -- $(git diff --name-only --diff-filter=U)
+        # Show diff between base and ours for the piped files.
+        diff-base-ours = !xargs -I @ git --no-pager diff --color :1:@ :2:@ | less -R
+        # Show diff between base and their for the piped files.
+        diff-base-theirs = !xargs -I @ git --no-pager diff --color :1:@ :3:@ | less -R
+        # Show diff between base and ours for the given file or all untracked file.
+        ours = !"f() { [ $@ ] && echo -n $@ | git diff-base-ours || git u | git diff-base-ours; }; f"
+        # Show diff between base and theirs for the given file or all untracked file.
+        theirs = !"f() { [ $@ ] && echo -n $@ | git diff-base-theirs || git u | git diff-base-theirs; }; f"
 
         f = fetch
 
