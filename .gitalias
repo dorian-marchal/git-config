@@ -14,10 +14,10 @@
         ane = commit --amend --no-edit
 
         b = branch
-        bm = branch --merged
-        bnm = branch --no-merged
+        bm = branch -m
         bd = branch -d
-        bD = branch -D
+        # Not bD because git aliases are case insensitive.
+        bdel = branch -D
         # Grep sur les branches locales
         bg = !"f() { git branch | grep "$@"; }; f"
         # Grep sur toutes les branches
