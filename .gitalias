@@ -109,9 +109,9 @@
             echo \"\\033[92m✓\\033[0m You can merge! :)\"; \
         }; f"
 
-        d = diff --color
-        ds = diff --color --stat
-        dss = diff --color --shortstat
+        d = diff
+        ds = diff --stat
+        dss = diff --shortstat
         dni = diff --no-index
         # Diff Tracking (diff from tracking branch).
         dt = !git diff --color $(git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD))
