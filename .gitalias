@@ -58,6 +58,9 @@
 
         co = checkout
         cob = checkout -b
+        # Checkout a Github PR.
+        # Usage: git copr <remote> <id>
+        copr = !"f() { git fetch $1 +refs/pull/$2/head && git checkout FETCH_HEAD; }; f"
 
         cp = cherry-pick
         cpa = cherry-pick --abort
