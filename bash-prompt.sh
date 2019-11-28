@@ -170,7 +170,7 @@ _init_git_prompt() {
         local behind_count="$(printf -- "$git_status" | grep -o 'behind [[:digit:]]*' | grep -o '[[:digit:]]*')"
         behind_count="${behind_count:-0}"
         local status_flags="$(printf -- "$git_status" | sed 's/^\(..\).*$/\1/')"
-        local staged_count="$(printf -- "$status_flags" | grep -v "$unmerged_pattern" | grep -c '^[AMD].')"
+        local staged_count="$(printf -- "$status_flags" | grep -v "$unmerged_pattern" | grep -c '^[AMDR].')"
         local unstaged_count="$(printf -- "$status_flags" | grep -v "$unmerged_pattern" | grep -c '^.[AMD]')"
         local untracked_count="$(printf -- "$status_flags" | grep -c '??')"
         local unmerged_count="$(printf -- "$status_flags" | grep -c "$unmerged_pattern")"
