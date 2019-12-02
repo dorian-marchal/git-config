@@ -305,4 +305,4 @@ _debuggable_prompt() {
     _get_prompt
 }
 
-export PS1='$(_debuggable_prompt)'
+PS1='$(_debuggable_prompt)'
