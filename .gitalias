@@ -3,6 +3,7 @@
         ai = add -i
         ap = add -p
         aN = add -N
+        ap-with-patience = -c diff.algorithm=patience add -p
 
         # Liste les alias git
         alias = !git config -l | grep ^alias | sed 's/alias\\.\\([^=]*\\)=/\\1 = /'
