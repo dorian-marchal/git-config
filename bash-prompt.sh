@@ -17,7 +17,9 @@
 # (it can work without it but will be slower).
 # @see https://github.com/romkatv/gitstatus
 
-source "$(dirname "$BASH_SOURCE")/gitstatus/gitstatus.plugin.sh" || export _DISABLE_GITSTATUS=true
+# `gitstatus/gitstatus.plugin.sh` is an optional dependency.
+# If it is available, that's nice: performances will be better.
+source "$(dirname "$BASH_SOURCE")/gitstatus/gitstatus.plugin.sh" 2>/dev/null || export _DISABLE_GITSTATUS=true
 
 # Regular Colors
 _black_='\e[0;30m'
