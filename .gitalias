@@ -144,9 +144,10 @@
         # - Starts quickly (e.g. probably not a web based app).
         # - Shows changes/untracked/staged files.
         # - Allows committing and amending (e.g. not VSCode).
-        g = !git gui
-        # Quit git gui on commit
-        gci = !git gui citool
+        # g = !git gui
+        # Currently trying git-cola
+        g = !git-cola
+
 
         # gitk qui affiche les branches locales et les tags, seulement
         k = !gitk --argscmd='git for-each-ref --format=\"%(refname)\" refs/heads refs/tags'
