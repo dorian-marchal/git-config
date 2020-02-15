@@ -139,6 +139,11 @@
         # First Commit : hash de la base de l'arbre git
         empty-tree = !echo "4b825dc642cb6eb9a060e54bf8d69288fbee4904"
 
+        # I'd love to replace git-gui but I couldn't find better yet. It must:
+        # - Be started from the command line (e.g. not Github Desktop).
+        # - Starts quickly (e.g. probably not a web based app).
+        # - Shows changes/untracked/staged files.
+        # - Allows committing and amending (e.g. not VSCode).
         g = !git gui
         # Quit git gui on commit
         gci = !git gui citool
@@ -250,3 +255,9 @@
 
         # Nombre de commits par contributeur
         who = shortlog -sne
+
+
+
+        # ----- hub specific aliases -----
+
+        pr = !hub pr show --format '%pC%>(8)%i%Creset  %t%  l%n-> %U%n'
