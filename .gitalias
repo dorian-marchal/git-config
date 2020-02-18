@@ -51,7 +51,7 @@
         # Temporary commit, can be used instead of stash to keep temporary changes on their branch.
         # `./bash-prompt.sh` will display a purple star when the latest commit is a temporary one.
         # Temporary commits can be undone with `git reset --soft HEAD`.
-        ctmp = !git add . --all && git commit -m "temporary-commit"
+        ctmp = !git add . --all && git commit -m '[DON’T MERGE] Temporary commit\n\nThis commit has been added with `git ctmp` [0].\n/!\\ It should not be merged until it is cleaned/reworded.\n\n[0]: https://git.io/Jv4uG'
 
         cl = clone
         # Clone un dépôt Github via le remote SSH
@@ -149,6 +149,8 @@
         # g = !git gui
         # Currently trying git-cola
         g = !git-cola
+        # Tried: tig, Github Desktop, VSCode
+        # Nexts on the list: Lazy git
 
 
         # gitk qui affiche les branches locales et les tags, seulement

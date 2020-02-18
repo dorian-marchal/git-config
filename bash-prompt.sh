@@ -237,7 +237,7 @@ _init_git_prompt() {
     # Specific to my workflow.
     # Adds an indicator if the latest commit is a temporary one (ctmp alias).
     local latest_commit_msg="$(git log --oneline --format=%B -n 1 HEAD -- 2> /dev/null | head -n 1)"
-    if [ "$latest_commit_msg" = "temporary-commit" ]; then
+    if [ "$latest_commit_msg" = "[DON’T MERGE] Temporary commit" ]; then
         local tmp_commit_indicator="${_ipurple_} ⭑${_off_}"
     fi
 
