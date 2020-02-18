@@ -48,7 +48,9 @@
         p-crh = !"f() { git reword $(git lh $(($1+1)) | grep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
 
         cm = commit -m
-        # Commit temporaire (par exemple pour fixup)
+        # Temporary commit, can be used instead of stash to keep temporary changes on their branch.
+        # `./bash-prompt.sh` will display a purple star when the latest commit is a temporary one.
+        # Temporary commits can be undone with `git reset --soft HEAD`.
         ctmp = !git add . --all && git commit -m "temporary-commit"
 
         cl = clone
