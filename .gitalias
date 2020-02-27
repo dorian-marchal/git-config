@@ -50,6 +50,7 @@
         # Rebase on a commit listed with `git rbh`.
         # Usage : git p-rbh 2
         p-rbh = !"f() { git rebase -i $(git lh $(($1+1)) | grep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
+        p-rbhas = !"f() { git rebase --autosquash -i $(git lh $(($1+1)) | grep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
 
         cm = commit -m
         # Temporary commit, can be used instead of stash to keep temporary changes on their branch.
@@ -199,6 +200,9 @@
 
         # `git lh` followed by `git p-rbh`.
         lhrb = !"f() { git lh $1 && echo '\nEnter index of commit to rebase on: ' && read commit_hash && git p-rbh $commit_hash; }; f"
+
+        # `git lh` followed by `git p-rbhas`.
+        lhrbas = !"f() { git lh $1 && echo '\nEnter index of commit to rebase on: ' && read commit_hash && git p-rbhas $commit_hash; }; f"
 
         p = push
         pf = push --force
