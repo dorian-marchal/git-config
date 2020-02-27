@@ -47,6 +47,10 @@
         # Usage : git p-crh 2
         p-crh = !"f() { git reword $(git lh $(($1+1)) | grep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
 
+        # Rebase on a commit listed with `git rbh`.
+        # Usage : git p-rbh 2
+        p-rbh = !"f() { git rebase -i $(git lh $(($1+1)) | grep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
+
         cm = commit -m
         # Temporary commit, can be used instead of stash to keep temporary changes on their branch.
         # `./bash-prompt.sh` will display a purple star when the latest commit is a temporary one.
@@ -184,14 +188,17 @@
         # Affichage du dernier commit
         l1 = log --pretty=tformat:'%C(yellow)%h%Creset - %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit -1
 
-        # Liste numérotée des dernières branches modifiées
+        # Numbered list of latest commits.
         lh = !"f() { git log --oneline | head -n ${1:-10} | nl -v0; }; f"
 
-        # git lh suivi d'un git p-cfh
+        # `git lh` followed by `git p-cfh`
         lhf = !"f() { git lh $1 && echo '\nEnter index of commit to fixup: ' && read commit_hash && git p-cfh $commit_hash; }; f"
 
-        # git lh suivi d'un git p-crh
+        # `git lh` followed by `git p-crh`
         lhr = !"f() { git lh $1 && echo '\nEnter index of commit to reword: ' && read commit_hash && git p-crh $commit_hash; }; f"
+
+        # `git lh` followed by `git p-rbh`.
+        lhrb = !"f() { git lh $1 && echo '\nEnter index of commit to rebase on: ' && read commit_hash && git p-rbh $commit_hash; }; f"
 
         p = push
         pf = push --force
