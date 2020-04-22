@@ -6,10 +6,10 @@
         ap-with-patience = -c diff.algorithm=patience add -p
 
         # Liste les alias git
-        alias = !git config -l | grep ^alias | sed 's/alias\\.\\([^=]*\\)=/\\1 = /'
+        alias = !git config -l | ggrep ^alias | sed 's/alias\\.\\([^=]*\\)=/\\1 = /'
         # What Is : Voir la description d'un alias
         # Usage : git wi l
-        wi = !"f() { git config -l | grep ^alias | grep -oP --color=never \"alias\\.$@=\\K(.*)\"; }; f"
+        wi = !"f() { git config -l | ggrep ^alias | ggrep -oP --color=never \"alias\\.$@=\\K(.*)\"; }; f"
 
         amend = commit --amend
         ane = commit --amend --no-edit
@@ -20,19 +20,19 @@
         # Not bD because git aliases are case insensitive.
         bdel = branch -D
         # Grep sur les branches locales
-        bg = !"f() { git branch | grep "$@"; }; f"
+        bg = !"f() { git branch | ggrep "$@"; }; f"
         # Grep sur toutes les branches
-        bga = !"f() { git branch --all | grep "$@"; }; f"
+        bga = !"f() { git branch --all | ggrep "$@"; }; f"
         bvv = branch -vv
         bavv = branch -a -vv
 
         # Liste numérotée des dernières branches modifiées.
         bh = !"f() { git for-each-ref --format='%(refname:short) %1B[0;33m(%(committerdate:relative))%1B[m' --sort -committerdate refs/heads/ | head -n ${1:-10} | nl -v0; }; f"
         # Liste des 10 dernières branches modifiées pour un remote donné.
-        bhr = !"f() { git for-each-ref --format='%(refname:short) %1B[0;33m(%(committerdate:relative))%1B[m' --sort -committerdate | grep --color=never "^$1/" | head -n 10; }; f"
+        bhr = !"f() { git for-each-ref --format='%(refname:short) %1B[0;33m(%(committerdate:relative))%1B[m' --sort -committerdate | ggrep --color=never "^$1/" | head -n 10; }; f"
         # Permet de checkout une des branches listées avec `git bh`.
         # Usage : git p-coh 2
-        p-coh = !"f() { git checkout $(git bh $(($1+1)) | grep -oP --color=NEVER \"^\\s*$1\\s+\\K([^\\s]+)\"); }; f"
+        p-coh = !"f() { git checkout $(git bh $(($1+1)) | ggrep -oP --color=NEVER \"^\\s*$1\\s+\\K([^\\s]+)\"); }; f"
         # `git bh` suivi d'un `git p-coh`.
         bhc = !"f() { git bh $1 && echo '\nEnter index of branch to checkout: ' && read branch_index && git p-coh $branch_index; }; f"
 
@@ -41,16 +41,16 @@
 
         # Permet de fixup un des commits listés avec git lh
         # Usage : git p-cfh 2
-        p-cfh = !"f() { git cf $(git lh $(($1+1)) | grep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
+        p-cfh = !"f() { git cf $(git lh $(($1+1)) | ggrep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
 
         # Permet de reword un des commits listés avec git lh
         # Usage : git p-crh 2
-        p-crh = !"f() { git reword $(git lh $(($1+1)) | grep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
+        p-crh = !"f() { git reword $(git lh $(($1+1)) | ggrep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
 
         # Rebase on a commit listed with `git rbh`.
         # Usage : git p-rbh 2
-        p-rbh = !"f() { set -x; git rebase -i $(git lh $(($1+1)) | grep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
-        p-rbhas = !"f() { set -x; git rebase --autosquash -i $(git lh $(($1+1)) | grep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
+        p-rbh = !"f() { set -x; git rebase -i $(git lh $(($1+1)) | ggrep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
+        p-rbhas = !"f() { set -x; git rebase --autosquash -i $(git lh $(($1+1)) | ggrep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
 
         cm = commit -m
         # Temporary commit, can be used instead of stash to keep temporary changes on their branch.
@@ -90,7 +90,7 @@
         # Vérifie que la branche courante ne comporte pas de commits de fixup (sortie 0 = pas de fixup, 1 = fixups).
         # Attention, cet alias ne fetch pas.
         # Usage : git p-is-fixup-free <remote> <branch>
-        p-is-fixup-free = !"f() { if [ -z \"$(git log --no-color --oneline $1/$2..HEAD | grep \"(fixup|squash)\\!\" )\" ]; then exit 0; else exit 1; fi; }; f"
+        p-is-fixup-free = !"f() { if [ -z \"$(git log --no-color --oneline $1/$2..HEAD | ggrep \"(fixup|squash)\\!\" )\" ]; then exit 0; else exit 1; fi; }; f"
 
         # Vérifie si la branche courante est bien pushée sur la tracking branch. (sortie 0 = pushed, 1 = not pushed).
         # Attention, cet alias ne fetch pas.
@@ -179,9 +179,9 @@
 
         # Formats particuliers pour git log
         ll = log --all --graph --abbrev=5 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit
-        # Permet de rechercher avec grep dans les logs
+        # Permet de rechercher avec ggrep dans les logs
         # Usage : git lg pattern
-        lg = !"f() { git lnp | grep --color -i \"$@\"; }; f"
+        lg = !"f() { git lnp | ggrep --color -i \"$@\"; }; f"
         # Log Head : Affiche les x premières lignes de log (6 par défaut).
         l = !"f() { if [ -z \"$1\" ]; then linecount=\"6\"; else linecount=$1; fi; git --no-pager log --graph --abbrev=5 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit HEAD~$linecount...HEAD; }; f"
 
@@ -213,7 +213,7 @@
 
         pl = pull --ff-only
 
-        revert-chmod = !"git diff -p -R | grep -E \"^(diff|(old|new) mode)\" | git apply"
+        revert-chmod = !"git diff -p -R | ggrep -E \"^(diff|(old|new) mode)\" | git apply"
 
         # --keep-empty allows keeping reword commits (see `reword` alias).
         rb = rebase --keep-empty -m
@@ -262,10 +262,10 @@
         unca = !echo  '/!\\\\ NOTHING DONE. Use git reset HEAD^ -- to undo a commit.'
 
         # Liste numérotée des fichiers en conflit.
-        uh = !"f() { git status --porcelain | grep 'U.\\|.U\\|DD|AA' | sed 's/^\\w\\+ \\+//g' | head -n ${1:-10} | nl -v0; }; f"
+        uh = !"f() { git status --porcelain | ggrep 'U.\\|.U\\|DD|AA' | sed 's/^\\w\\+ \\+//g' | head -n ${1:-10} | nl -v0; }; f"
         # Permet d'xclip un des fichiers listés avec `git uh`.
         # Usage : git p-clipuh 2
-        p-clipuh = !"f() { git uh $(($1+1)) | grep -oP --color=NEVER \"^\\s*$1\\s+\\K([^\\s]+)\" | xargs echo -n | xclip -selection clipboard; }; f"
+        p-clipuh = !"f() { git uh $(($1+1)) | ggrep -oP --color=NEVER \"^\\s*$1\\s+\\K([^\\s]+)\" | xargs echo -n | xclip -selection clipboard; }; f"
         # `git uh` suivi d'un `git p-clipuh`.
         uhc = !"f() { git uh $1 && echo '\nEnter index of file to xclip: ' && read file_index && git p-clipuh $file_index; }; f"
 
