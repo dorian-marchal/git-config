@@ -226,6 +226,8 @@
         # Utile pour réordonner les commits dans l'interface de PR Github.
         # /!\ Peut fausser les stats de commit.
         rbo = rebase -i --keep-empty -x 'git commit --amend -C HEAD --date=\"$(date -R)\"'
+        # Output the hash before rebase.
+        before-rebase = !"git reflog | grep -A 1 'rebase (start)' | head -n 2 | tail -n 1 | cut -d' ' -f1"
 
         # Creates an empty "squash!" commit with an editable commit message
         # defaulting to the message of the given ref.
