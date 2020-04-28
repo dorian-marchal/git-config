@@ -27,7 +27,7 @@
         bavv = branch -a -vv
 
         # Liste numérotée des dernières branches modifiées.
-        bh = !"f() { git for-each-ref --format='%(refname:short) %1B[0;33m(%(committerdate:relative))%1B[m' --sort -committerdate refs/heads/ | head -n ${1:-10} | nl -v0; }; f"
+        bh = !"f() { git for-each-ref --format='%(refname:short) %1B[0;33m(%(committerdate:relative))%1B[m' --sort -committerdate refs/heads/ | head -n ${1:-30} | nl -v0; }; f"
         # Liste des 10 dernières branches modifiées pour un remote donné.
         bhr = !"f() { git for-each-ref --format='%(refname:short) %1B[0;33m(%(committerdate:relative))%1B[m' --sort -committerdate | ggrep --color=never "^$1/" | head -n 10; }; f"
         # Permet de checkout une des branches listées avec `git bh`.
@@ -190,7 +190,7 @@
         l1 = log --pretty=tformat:'%C(yellow)%h%Creset - %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit -1
 
         # Numbered list of latest commits.
-        lh = !"f() { git log --oneline | head -n ${1:-10} | nl -v0; }; f"
+        lh = !"f() { git log --oneline | head -n ${1:-30} | nl -v0; }; f"
 
         # `git lh` followed by `git p-cfh`
         lhf = !"f() { git lh $1 && echo '\nEnter index of commit to fixup: ' && read commit_hash && git p-cfh $commit_hash; }; f"
@@ -264,7 +264,7 @@
         unca = !echo  '/!\\\\ NOTHING DONE. Use git reset HEAD^ -- to undo a commit.'
 
         # Liste numérotée des fichiers en conflit.
-        uh = !"f() { git status --porcelain | ggrep 'U.\\|.U\\|DD|AA' | sed 's/^\\w\\+ \\+//g' | head -n ${1:-10} | nl -v0; }; f"
+        uh = !"f() { git status --porcelain | ggrep 'U.\\|.U\\|DD|AA' | sed 's/^\\w\\+ \\+//g' | head -n ${1:-30} | nl -v0; }; f"
         # Permet d'xclip un des fichiers listés avec `git uh`.
         # Usage : git p-clipuh 2
         p-clipuh = !"f() { git uh $(($1+1)) | ggrep -oP --color=NEVER \"^\\s*$1\\s+\\K([^\\s]+)\" | xargs echo -n | xclip -selection clipboard; }; f"
