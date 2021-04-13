@@ -56,7 +56,8 @@
         # Temporary commit, can be used instead of stash to keep temporary changes on their branch.
         # `./bash-prompt.sh` will display a purple star when the latest commit is a temporary one.
         # Temporary commits can be undone with `git reset --soft HEAD`.
-        ctmp = !git add . --all && git commit -m '[DON’T MERGE] Temporary commit\n\nThis commit has been added with `git ctmp` [0].\n/!\\ It should not be merged until it is cleaned/reworded.\n\n[0]: https://git.io/Jv4uG'
+        tmp = !git commit -m '[DON’T MERGE] Temporary commit\n\nThis commit has been added with `git ctmp` [0].\n/!\\ It should not be merged until it is cleaned/reworded.\n\n[0]: https://git.io/Jv4uG'
+        ctmp = !git add . --all && git tmp
 
         cl = clone
         # Clone un dépôt Github via le remote SSH
@@ -123,6 +124,9 @@
         d = diff
         ds = diff --stat
         dss = diff --shortstat
+        # Diff with upstream branch.
+        du = diff @{u}
+        dsu = diff --stat @{u}
         dni = diff --no-index
         # Diff Tracking (diff from tracking branch).
         dt = !git diff --color $(git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD))
@@ -233,7 +237,8 @@
         # defaulting to the message of the given ref.
         # This allows rewording a commit without rewriting history (useful during code review).
         # Note: rebases should be done with the --keep-empty flag to keep these commits.
-        reword = !"f() { git commit --allow-empty -m \"squash! $(git log --format=%B -n 1 $1)\" && (git commit --allow-empty --amend || git reset --hard HEAD^); }; f"
+        reword = !"f() { git commit --allow-empty -m \"$(git log --format='squash! %s%n%n%B' -n 1 $1)\" && (git commit --allow-empty --amend); }; f"
+        # reword = !"f() { git commit --allow-empty -m \"squash! $(git log --format=%B -n 1 $1)\" && (git commit --allow-empty --amend || git reset --hard HEAD^); }; f"
 
         r = reset
         rs = reset --soft

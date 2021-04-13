@@ -122,7 +122,7 @@ _init_git_prompt() {
         if [ -f "$git_dir/MERGE_HEAD" ]; then
             local process='|MERGING'
 
-        elif [ -f "$git_dir/REBASE_HEAD" ]; then
+        elif [ -d "$git_dir/rebase-apply" ] || [ -d "$git_dir/rebase-merge" ]; then
             if [ -d "$git_dir/rebase-apply" ]; then
                 local stopped_sha="$(cat "$git_dir/rebase-apply/original-commit")"
                 local current_step="$(cat "$git_dir/rebase-apply/next")"
