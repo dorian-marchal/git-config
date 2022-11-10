@@ -6,10 +6,10 @@
         ap-with-patience = -c diff.algorithm=patience add -p
 
         # Liste les alias git
-        alias = !git config -l | ggrep ^alias | sed 's/alias\\.\\([^=]*\\)=/\\1 = /'
+        alias = !git config -l | grep ^alias | sed 's/alias\\.\\([^=]*\\)=/\\1 = /'
         # What Is : Voir la description d'un alias
         # Usage : git wi l
-        wi = !"f() { git config -l | ggrep ^alias | ggrep -oP --color=never \"alias\\.$@=\\K(.*)\"; }; f"
+        wi = !"f() { git config -l | grep ^alias | grep -oP --color=never \"alias\\.$@=\\K(.*)\"; }; f"
 
         amend = commit --amend
         ane = commit --amend --no-edit
@@ -20,19 +20,19 @@
         # Not bD because git aliases are case insensitive.
         bdel = branch -D
         # Grep sur les branches locales
-        bg = !"f() { git branch | ggrep "$@"; }; f"
+        bg = !"f() { git branch | grep "$@"; }; f"
         # Grep sur toutes les branches
-        bga = !"f() { git branch --all | ggrep "$@"; }; f"
+        bga = !"f() { git branch --all | grep "$@"; }; f"
         bvv = branch -vv
         bavv = branch -a -vv
 
         # Liste numérotée des dernières branches modifiées.
         bh = !"f() { git for-each-ref --format='%(refname:short) %1B[0;33m(%(committerdate:relative))%1B[m' --sort -committerdate refs/heads/ | head -n ${1:-30} | nl -v0; }; f"
         # Liste des 10 dernières branches modifiées pour un remote donné.
-        bhr = !"f() { git for-each-ref --format='%(refname:short) %1B[0;33m(%(committerdate:relative))%1B[m' --sort -committerdate | ggrep --color=never "^$1/" | head -n 10; }; f"
+        bhr = !"f() { git for-each-ref --format='%(refname:short) %1B[0;33m(%(committerdate:relative))%1B[m' --sort -committerdate | grep --color=never "^$1/" | head -n 10; }; f"
         # Permet de checkout une des branches listées avec `git bh`.
         # Usage : git p-coh 2
-        p-coh = !"f() { git checkout $(git bh $(($1+1)) | ggrep -oP --color=NEVER \"^\\s*$1\\s+\\K([^\\s]+)\"); }; f"
+        p-coh = !"f() { git checkout $(git bh $(($1+1)) | grep -oP --color=NEVER \"^\\s*$1\\s+\\K([^\\s]+)\"); }; f"
         # `git bh` suivi d'un `git p-coh`.
         bhc = !"f() { git bh $1 && echo '\nEnter index of branch to checkout: ' && read branch_index && git p-coh $branch_index; }; f"
 
@@ -41,22 +41,22 @@
 
         # Permet de fixup un des commits listés avec git lh
         # Usage : git p-cfh 2
-        p-cfh = !"f() { git cf $(git lh $(($1+1)) | ggrep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
+        p-cfh = !"f() { git cf $(git lh $(($1+1)) | grep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
 
         # Permet de reword un des commits listés avec git lh
         # Usage : git p-crh 2
-        p-crh = !"f() { git reword $(git lh $(($1+1)) | ggrep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
+        p-crh = !"f() { git reword $(git lh $(($1+1)) | grep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
 
         # Rebase on a commit listed with `git rbh`.
         # Usage : git p-rbh 2
-        p-rbh = !"f() { set -x; git rebase -i $(git lh $(($1+1)) | ggrep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
-        p-rbhas = !"f() { set -x; git rebase --autosquash -i $(git lh $(($1+1)) | ggrep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
+        p-rbh = !"f() { set -x; git rebase -i $(git lh $(($1+1)) | grep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
+        p-rbhas = !"f() { set -x; git rebase --autosquash -i $(git lh $(($1+1)) | grep -oP --color=NEVER \"$1\\s+\\K([a-f0-9]+)\\s\"); }; f"
 
         cm = commit -m
         # Temporary commit, can be used instead of stash to keep temporary changes on their branch.
         # `./bash-prompt.sh` will display a purple star when the latest commit is a temporary one.
         # Temporary commits can be undone with `git reset --soft HEAD`.
-        tmp = !git commit -m '[DON’T MERGE] Temporary commit\n\nThis commit has been added with `git ctmp` [0].\n/!\\ It should not be merged until it is cleaned/reworded.\n\n[0]: https://git.io/Jv4uG'
+        tmp = !git commit -m '"[DON’T MERGE] Temporary commit\n\nThis commit has been added with `git ctmp` [0].\n/!\\ It should not be merged until it is cleaned/reworded.\n\n[0]: https://github.com/dorian-marchal/git-config/blob/a30e4474e6bb2f9513700e4276ddc75d4c1c91a3/.gitalias#L51-L54"'
         ctmp = !git add . --all && git tmp
 
         cl = clone
@@ -91,7 +91,7 @@
         # Vérifie que la branche courante ne comporte pas de commits de fixup (sortie 0 = pas de fixup, 1 = fixups).
         # Attention, cet alias ne fetch pas.
         # Usage : git p-is-fixup-free <remote> <branch>
-        p-is-fixup-free = !"f() { if [ -z \"$(git log --no-color --oneline $1/$2..HEAD | ggrep \"(fixup|squash)\\!\" )\" ]; then exit 0; else exit 1; fi; }; f"
+        p-is-fixup-free = !"f() { if [ -z \"$(git log --no-color --oneline $1/$2..HEAD | grep \"(fixup|squash)\\!\" )\" ]; then exit 0; else exit 1; fi; }; f"
 
         # Vérifie si la branche courante est bien pushée sur la tracking branch. (sortie 0 = pushed, 1 = not pushed).
         # Attention, cet alias ne fetch pas.
@@ -122,6 +122,7 @@
         }; f"
 
         d = diff
+        dc = diff --cached
         ds = diff --stat
         dss = diff --shortstat
         # Diff with upstream branch.
@@ -150,17 +151,7 @@
         # First Commit : hash de la base de l'arbre git
         empty-tree = !echo "4b825dc642cb6eb9a060e54bf8d69288fbee4904"
 
-        # I'd love to replace git-gui but I couldn't find better yet. It must:
-        # - Be started from the command line (e.g. not Github Desktop).
-        # - Starts quickly (e.g. probably not a web based app).
-        # - Shows changes/untracked/staged files.
-        # - Allows committing and amending (e.g. not VSCode).
-        # g = !git gui
-        # Currently trying git-cola
-        g = !git-cola
-        # Tried: tig, Github Desktop, VSCode
-        # Nexts on the list: Lazy git
-
+        g = !git-cola &
 
         # gitk qui affiche les branches locales et les tags, seulement
         k = !gitk --argscmd='git for-each-ref --format=\"%(refname)\" refs/heads refs/tags'
@@ -182,12 +173,12 @@
         mt = !"f() { LANG=en_US.UTF-8 git mergetool -y $@; }; f"
 
         # Formats particuliers pour git log
-        ll = log --all --graph --abbrev=5 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit
-        # Permet de rechercher avec ggrep dans les logs
+        ll = log --all --graph --abbrev=8 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit
+        # Permet de rechercher avec grep dans les logs
         # Usage : git lg pattern
-        lg = !"f() { git lnp | ggrep --color -i \"$@\"; }; f"
+        lg = !"f() { git lnp | grep --color -i \"$@\"; }; f"
         # Log Head : Affiche les x premières lignes de log (6 par défaut).
-        l = !"f() { if [ -z \"$1\" ]; then linecount=\"6\"; else linecount=$1; fi; git --no-pager log --graph --abbrev=5 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit HEAD~$linecount...HEAD; }; f"
+        l = !"f() { if [ -z \"$1\" ]; then linecount=\"18\"; else linecount=$1; fi; git --no-pager log --abbrev=8 --pretty=tformat:'%C(yellow)%h%Creset -%C(green bold)%d%Creset %s %C(white dim)(%cr) %C(blue bold)<%an>%Creset' --abbrev-commit HEAD~$linecount...HEAD; }; f"
 
         lu = log -u
         # Affichage du dernier commit
@@ -217,19 +208,19 @@
 
         pl = pull --ff-only
 
-        revert-chmod = !"git diff -p -R | ggrep -E \"^(diff|(old|new) mode)\" | git apply"
+        revert-chmod = !"git diff -p -R | grep -E \"^(diff|(old|new) mode)\" | git apply"
 
         # --keep-empty allows keeping reword commits (see `reword` alias).
-        rb = rebase --keep-empty -m
+        rb = rebase --keep-empty --rebase-merges -m
         rba = rebase --abort
         rbc = rebase --continue
         rbs = rebase --skip
-        rbi = rebase -i --keep-empty
-        rbas = rebase -i --autosquash --keep-empty
+        rbi = rebase -i --rebase-merges --keep-empty
+        rbas = rebase -i --autosquash --rebase-merges --keep-empty
         # Rebase interactif en changeant l'author date de tous les commits.
         # Utile pour réordonner les commits dans l'interface de PR Github.
         # /!\ Peut fausser les stats de commit.
-        rbo = rebase -i --keep-empty -x 'git commit --amend -C HEAD --date=\"$(date -R)\"'
+        rbo = rebase -i --keep-empty --rebase-merges -x 'git commit --amend -C HEAD --date=\"$(date -R)\"'
         # Output the hash before rebase.
         before-rebase = !"git reflog | grep -A 1 'rebase (start)' | head -n 2 | tail -n 1 | cut -d' ' -f1"
 
@@ -244,8 +235,11 @@
         rs = reset --soft
         rh = reset --hard
 
+
         s = status --untracked-files=all
         ss = status --untracked-files=all -s
+
+        sh = show --stat
 
         st  = stash
         stl = stash list
@@ -269,10 +263,10 @@
         unca = !echo  '/!\\\\ NOTHING DONE. Use git reset HEAD^ -- to undo a commit.'
 
         # Liste numérotée des fichiers en conflit.
-        uh = !"f() { git status --porcelain | ggrep 'U.\\|.U\\|DD|AA' | sed 's/^\\w\\+ \\+//g' | head -n ${1:-30} | nl -v0; }; f"
+        uh = !"f() { git status --porcelain | grep 'U.\\|.U\\|DD|AA' | sed 's/^\\w\\+ \\+//g' | head -n ${1:-30} | nl -v0; }; f"
         # Permet d'xclip un des fichiers listés avec `git uh`.
         # Usage : git p-clipuh 2
-        p-clipuh = !"f() { git uh $(($1+1)) | ggrep -oP --color=NEVER \"^\\s*$1\\s+\\K([^\\s]+)\" | xargs echo -n | xclip -selection clipboard; }; f"
+        p-clipuh = !"f() { git uh $(($1+1)) | grep -oP --color=NEVER \"^\\s*$1\\s+\\K([^\\s]+)\" | xargs echo -n | xclip -selection clipboard; }; f"
         # `git uh` suivi d'un `git p-clipuh`.
         uhc = !"f() { git uh $1 && echo '\nEnter index of file to xclip: ' && read file_index && git p-clipuh $file_index; }; f"
 
@@ -284,3 +278,5 @@
         # ----- hub specific aliases -----
 
         pr = !hub pr show --format '%pC%>(8)%i%Creset  %t%  l%n-> %U%n'
+        hp = !hub pull-request -o
+        hpd = !hub pull-request --draft -o
