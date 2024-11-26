@@ -60,11 +60,13 @@
         # Temporary commits can be undone with `git reset --soft HEAD`.
         tmp = !git commit -m '"[DON’T MERGE] Temporary commit\n\nThis commit has been added with `git ctmp` [0].\n/!\\ It should not be merged until it is cleaned/reworded.\n\n[0]: https://github.com/dorian-marchal/git-config/blob/a30e4474e6bb2f9513700e4276ddc75d4c1c91a3/.gitalias#L51-L54"'
         ctmp = !git add . --all && git tmp
+        tt = ctmp
 
         cl = clone
         # Clone un dépôt Github via le remote SSH
         # Usage : git clgh dorian-marchal/git-config
         clgh = !"f() { git clone "git@github.com:$1.git $2"; }; f"
+        clgl = !"f() { git clone "git@gitlab.com:$1.git $2"; }; f"
 
         co = checkout
         cob = checkout -b
@@ -126,6 +128,7 @@
         dc = diff --cached
         ds = diff --stat
         dss = diff --shortstat
+        dsd = diff --staged
         # Diff with upstream branch.
         du = diff @{u}
         dsu = diff --stat @{u}
@@ -201,7 +204,7 @@
         lhrbas = !"f() { git lh $1 && echo '\nEnter index of commit to rebase on: ' && read commit_hash && git p-rbhas $commit_hash; }; f"
 
         p = push
-        pf = push --force
+        pf = push --force-with-lease
         pt = push --tags
         pu = push --set-upstream
         # Pousse la branche courante en settant l'uptream à origin/<current-branch-name>
@@ -282,3 +285,8 @@
         pr = !hub pr show --format '%pC%>(8)%i%Creset  %t%  l%n-> %U%n'
         hp = !hub pull-request -o
         hpd = !hub pull-request --draft -o
+
+        # ----- glab specific aliases -----
+
+        lp = !glab mr create -w --fill
+        lpd = !glab mr create -w --fill --draft

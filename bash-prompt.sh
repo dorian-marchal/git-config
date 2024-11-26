@@ -162,7 +162,7 @@ _init_git_prompt() {
 
     # Fallback on slower "git status".
     else
-        _on_debug echo 'Fallbacking on git status. :('
+        _on_debug echo 'Falling back on git status. :('
 
         local git_status=$(git status --branch --untracked-files=all --porcelain)
         local unmerged_pattern='U.\|.U\|DD|AA'
@@ -278,7 +278,7 @@ _get_prompt() {
         local status_indicator="${_ired_}⏺${_off_} "
     fi
 
-    _init_node_prompt
+    # _init_node_prompt
 
     if [ -n "$git_dir" ]; then
         _init_git_prompt
